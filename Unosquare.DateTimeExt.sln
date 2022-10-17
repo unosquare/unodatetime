@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{7DFBF09A-8F67-483A-84D0-A61D690B4879}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.github\workflows\build.yml = .github\workflows\build.yml
+		StyleCop.Analyzers.ruleset = StyleCop.Analyzers.ruleset
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7124B543-E0A8-4855-894C-DE45A234E593}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.DateTimeExt", "src\Unosquare.DateTimeExt\Unosquare.DateTimeExt.csproj", "{819E0E70-62FE-46D7-9A5B-67387B072CAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A27DA3BB-9F4B-416A-B6DA-43FF879CC7B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unosquare.DateTimeExt.Test", "test\Unosquare.DateTimeExt.Test\Unosquare.DateTimeExt.Test\Unosquare.DateTimeExt.Test.csproj", "{836583D7-5A37-432A-9BEC-E9D7C5C17877}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{819E0E70-62FE-46D7-9A5B-67387B072CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819E0E70-62FE-46D7-9A5B-67387B072CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819E0E70-62FE-46D7-9A5B-67387B072CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819E0E70-62FE-46D7-9A5B-67387B072CAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{836583D7-5A37-432A-9BEC-E9D7C5C17877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{836583D7-5A37-432A-9BEC-E9D7C5C17877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{836583D7-5A37-432A-9BEC-E9D7C5C17877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{836583D7-5A37-432A-9BEC-E9D7C5C17877}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{819E0E70-62FE-46D7-9A5B-67387B072CAF} = {7124B543-E0A8-4855-894C-DE45A234E593}
+		{836583D7-5A37-432A-9BEC-E9D7C5C17877} = {A27DA3BB-9F4B-416A-B6DA-43FF879CC7B5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95313BE2-9DE5-4D3E-8517-CFA06E87F436}
+	EndGlobalSection
+EndGlobal
