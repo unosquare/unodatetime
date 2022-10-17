@@ -130,4 +130,11 @@ public static class DateExtensions
         date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday;
 
     public static int GetDaysInMonth(this DateTime date) => DateTime.DaysInMonth(date.Year, date.Month);
+
+    public static int DiffMonths(this DateTime endDate, DateTime startDate)
+    {
+        var diffYears = Math.Abs(endDate.Year - startDate.Year);
+        var diffMonths = endDate.Month - startDate.Month;
+        return (diffYears * 12) + diffMonths;
+    }
 }

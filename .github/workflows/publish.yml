@@ -1,0 +1,15 @@
+name: Pack and Publish Nuget to Nuget.org
+on:
+  push:
+    branches: master
+
+jobs:
+  publish:
+    uses: unosquare/bump-nuget-version/.github/workflows/lib-ci-nuget-org.yml@master
+    with:
+      source-path: "src/"
+      project-name: "Unosquare.DateTimeExt"
+    secrets:
+      nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+      github-token: ${{ secrets.GPR_ACCESS_TOKEN }}
+      cache-version: ${{ secrets.CACHE_VERSION }}
