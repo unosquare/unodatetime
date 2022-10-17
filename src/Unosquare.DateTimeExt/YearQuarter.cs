@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public class YearQuarter : IReadOnlyDateRange, IComparable<YearQuarter>
+public class YearQuarter : IYearQuarter, IReadOnlyDateRange, IComparable<YearQuarter>
 {
     private readonly DateTime _startDate;
 

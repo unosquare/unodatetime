@@ -2,5 +2,5 @@
 
 public interface IHasReadOnlyEndDate
 {
-    DateTime StartDate { get; }
+    DateTime EndDate { get; }
 }
