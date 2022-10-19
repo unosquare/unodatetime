@@ -2,6 +2,25 @@ namespace Unosquare.DateTimeExt.Test;
 
 public class DateExtensionsTests
 {
+    public static readonly object[][] BusinessAndWeekendDates =
+    {
+        new object[] { new DateTime(2022, 10, 3), new DateTime(2022, 10, 8)},
+        new object[] { new DateTime(2022, 10, 10), new DateTime(2022, 10, 16)},
+        new object[] { new DateTime(2022, 10, 24), new DateTime(2022, 10, 30)}
+    };
+
+    public static readonly object[][] monthsRange =
+    {
+        new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 12, 01)},
+        new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 2, 01)},
+        new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 6, 01)}
+    };
+
+    public static readonly object[][] normalAndLeapYear =
+    {
+        new object[] { new DateTime(2022, 02, 01), new DateTime(2020, 02, 01)},
+    };
+
     [Fact]
     public void WithDate_ToFormattedString()
     {
@@ -74,7 +93,7 @@ public class DateExtensionsTests
     }
 
     [Fact]
-    public void WithYearAndMont_GetMontRange()
+    public void WithYearAndMonth_GetMontRange()
     {
         var monthRange = 2022.GetMonthRange(10);
 
@@ -112,21 +131,23 @@ public class DateExtensionsTests
         Assert.Equal(12, 2022.GetMonthFromWeekYear(52));
     }
 
-    [Fact]
-    public void WithDate_IsWeekend()
+    [Theory, MemberData(nameof(BusinessAndWeekendDates))]
+    public void WithDate_IsWeekend(DateTime businessDay, DateTime WeekendDay)
     {
-        Assert.True(new DateTime(2022, 10, 22).IsWeekend());
+        Assert.False(businessDay.IsWeekend());
+        Assert.True(WeekendDay.IsWeekend());
     }
 
-    [Fact]
-    public void WithDate_GetDaysInMonth()
+    [Theory, MemberData(nameof(normalAndLeapYear))]
+    public void WithDate_GetDaysInMonth(DateTime normalYear, DateTime leapYear)
     {
-        Assert.Equal(29, new DateTime(2020, 2, 1).GetDaysInMonth());
+        Assert.Equal(28, normalYear.GetDaysInMonth());
+        Assert.Equal(29, leapYear.GetDaysInMonth());
     }
 
-    [Fact]
-    public void WithDate_DiffMonths()
+    [Theory, MemberData(nameof(monthsRange))]
+    public void WithDate_DiffMonths(DateTime startDate, DateTime endDate)
     {
-        Assert.Equal(11, new DateTime(2020, 12, 1).DiffMonths(new DateTime(2020, 1, 1)));
+        Assert.Equal(endDate.Month - startDate.Month, endDate.DiffMonths(startDate));
     }
 }
