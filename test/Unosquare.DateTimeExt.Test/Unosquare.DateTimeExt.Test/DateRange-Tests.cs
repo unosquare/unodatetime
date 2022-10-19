@@ -42,7 +42,7 @@ public class DateRangeTests
     }
 
     [Fact]
-    public void WithTwoQuarters_ComparesThem()
+    public void WithTwoDateRanges_ComparesThem()
     {
         var dateRange1 = new DateRange(new DateTime(2022, 10, 1), new DateTime(2022, 10, 31));
         var dateRange2 = new DateRange(new DateTime(2022, 10, 2), new DateTime(2022, 10, 31));
@@ -52,3 +52,5 @@ public class DateRangeTests
         Assert.Equal(1, dateRange2.CompareTo(dateRange1));
     }
 }
+
+
