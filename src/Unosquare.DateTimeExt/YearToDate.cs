@@ -1,10 +1,21 @@
-﻿namespace Unosquare.DateTimeExt;
+﻿using Unosquare.DateTimeExt.Interfaces;
 
-public class YearToDate : DateRange
+namespace Unosquare.DateTimeExt;
+
+public class YearToDate : DateRange, IHasReadOnlyYear, IHasWeeks, IHasMonths
 {
-    public YearToDate(int? year = null) : base(CalculateStartDate(year).Date, CalculateEndDate(year).Date)
+    public YearToDate(int? year = null)
+        : base(CalculateStartDate(year).Date, CalculateEndDate(year).Date)
     {
+        Months = Enumerable.Range(StartDate.Month, EndDate.Month).ToArray();
+        Weeks = Enumerable.Range(1, EndDate.GetWeekOfYear()).ToArray();
     }
+
+    public int Year => StartDate.Year;
+
+    public int[] Months { get; }
+
+    public int[] Weeks { get; }
 
     public override string ToString() => $"YTD: {base.ToString()}";
 

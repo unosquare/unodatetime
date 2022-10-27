@@ -19,4 +19,22 @@ public class YearToDateTests
     {
         Assert.Equal(DateTime.UtcNow.Date, new YearToDate().EndDate);
     }
+
+    [Fact]
+    public void WithYearToDateOnPast_ReturnsYear()
+    {
+        Assert.Equal(2020, new YearToDate(2020).Year);
+    }
+
+    [Fact]
+    public void WithYearToDateOnPast_ReturnsAllMonths()
+    {
+        Assert.Equal(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }, new YearToDate(2020).Months);
+    }
+
+    [Fact]
+    public void WithYearToDateOnPast_ReturnsAllWeeks()
+    {
+        Assert.Equal(52, new YearToDate(2020).Weeks.Length);
+    }
 }
