@@ -86,6 +86,18 @@ public static class DateExtensions
     public static DateTime GetLastDayOfMonth(this DateTime date) =>
         new(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
 
+    public static DateTime GetFirstBusinessDayOfMonth(this DateTime @this)
+    {
+        var firstDayOfCurrentMonth = @this.GetFirstDayOfMonth();
+
+        return firstDayOfCurrentMonth.DayOfWeek switch
+        {
+            DayOfWeek.Sunday => firstDayOfCurrentMonth.AddDays(1),
+            DayOfWeek.Saturday => firstDayOfCurrentMonth.AddDays(2),
+            _ => firstDayOfCurrentMonth
+        };
+    }
+
     public static DateTime GetLastBusinessDayOfMonth(this DateTime @this)
     {
         var lastDayOfCurrentMonth = @this.GetLastDayOfMonth();
@@ -115,9 +127,7 @@ public static class DateExtensions
         var firstSaturday = new DateTime(year, 1, 1);
 
         while (firstSaturday.DayOfWeek != DayOfWeek.Saturday)
-        {
             firstSaturday = firstSaturday.AddDays(1);
-        }
 
         var weekOfFirstSaturday = firstSaturday.GetWeekOfYear();
 
@@ -137,4 +147,11 @@ public static class DateExtensions
         var diffMonths = endDate.Month - startDate.Month;
         return (diffYears * 12) + diffMonths;
     }
+
+    public static YearQuarter ToYearQuarter(this DateTime date) => new(date);
+    public static YearMonth ToYearMonth(this DateTime date) => new(date);
+    public static YearWeek ToYearWeek(this DateTime date) => new(date);
+    public static MonthToDate ToMonthToDate(this DateTime date) => new(date);
+    public static YearToDate ToYearToDate(this DateTime date) => new(date.Year);
+    public static TrailingTwelveMonths ToTrailingTwelveMonths(this DateTime date) => new(date);
 }

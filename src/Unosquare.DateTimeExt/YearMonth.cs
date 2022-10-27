@@ -1,33 +1,42 @@
-﻿using Unosquare.DateTimeExt.Interfaces;
+﻿using System.Collections.ObjectModel;
+using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class YearMonth : IYearMonthDateRange, IComparable<YearMonth>
+public class YearMonth : IYearMonthDateRange, IHasBusinessDays, IHasWeeks, IComparable<YearMonth>
 {
-    private readonly DateTime _startDate;
+    public YearMonth(int? month = null, int? year = null)
+    {
+        StartDate = new(
+            year ?? DateTime.UtcNow.Year,
+            month ?? DateTime.UtcNow.Month,
+            1);
 
-    public YearMonth(int? month = null, int? year = null) => _startDate = new(
-        year ?? DateTime.UtcNow.Year,
-        month ?? DateTime.UtcNow.Month,
-        1);
+        Weeks = new(Enumerable.Range(StartDate.GetWeekOfYear(), EndDate.GetWeekOfYear()).ToArray());
+    }
 
     public YearMonth(DateTime dateTime)
         : this(dateTime.Month, dateTime.Year)
     {
-
     }
 
-    public int Month => _startDate.Month;
-    public int Year => _startDate.Year;
+    public int Month => StartDate.Month;
+    public int Year => StartDate.Year;
 
-    public DateTime StartDate => _startDate;
-    public DateTime EndDate => _startDate.GetLastDayOfMonth();
+    public ReadOnlyCollection<int> Weeks { get; }
 
-    public DateRange DateRange => new(_startDate, EndDate);
+    public DateTime StartDate { get; }
 
-    public YearMonth Next => new(_startDate.AddMonths(1));
+    public DateTime EndDate => StartDate.GetLastDayOfMonth();
 
-    public YearMonth Previous => new(_startDate.AddMonths(-1));
+    public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
+    public DateTime LastBusinessDay => StartDate.GetLastBusinessDayOfMonth();
+
+    public DateRange DateRange => new(StartDate, EndDate);
+
+    public YearMonth Next => new(StartDate.AddMonths(1));
+
+    public YearMonth Previous => new(StartDate.AddMonths(-1));
 
     public void Deconstruct(out DateTime startDate, out DateTime endDate)
     {
@@ -48,6 +57,6 @@ public class YearMonth : IYearMonthDateRange, IComparable<YearMonth>
         if (ReferenceEquals(this, other))
             return 0;
 
-        return ReferenceEquals(null, other) ? 1 : _startDate.CompareTo(other._startDate);
+        return ReferenceEquals(null, other) ? 1 : StartDate.CompareTo(other.StartDate);
     }
 }

@@ -120,6 +120,11 @@ public class DateExtensionsTests
     }
 
     [Fact]
+    public void WithDate_GetFirstBusinessDayOfMonth()
+    {
+        Assert.Equal(new(2022, 10, 3), new DateTime(2022, 10, 1).GetFirstBusinessDayOfMonth());
+    }
+    [Fact]
     public void WithStartAndEndDate_GetBusinessDays()
     {
         Assert.Equal(5, new DateTime(2022, 10, 1).GetBusinessDays(new(2022, 10, 7)));

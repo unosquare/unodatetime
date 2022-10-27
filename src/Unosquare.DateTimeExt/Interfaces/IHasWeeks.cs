@@ -1,6 +1,8 @@
-﻿namespace Unosquare.DateTimeExt.Interfaces;
+﻿using System.Collections.ObjectModel;
+
+namespace Unosquare.DateTimeExt.Interfaces;
 
 public interface IHasWeeks
 {
-    int[] Weeks { get; }
+    ReadOnlyCollection<int> Weeks { get; }
 }

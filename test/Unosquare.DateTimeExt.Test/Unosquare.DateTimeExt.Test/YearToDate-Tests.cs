@@ -35,6 +35,6 @@ public class YearToDateTests
     [Fact]
     public void WithYearToDateOnPast_ReturnsAllWeeks()
     {
-        Assert.Equal(52, new YearToDate(2020).Weeks.Length);
+        Assert.Equal(52, new YearToDate(2020).Weeks.Count);
     }
 }

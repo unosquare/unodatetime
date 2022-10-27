@@ -1,28 +1,31 @@
-﻿using Unosquare.DateTimeExt.Interfaces;
+﻿using System.Collections.ObjectModel;
+using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class YearToDate : DateRange, IHasReadOnlyYear, IHasWeeks, IHasMonths
+public class YearToDate : DateRange, IHasReadOnlyYear, IHasWeeks, IHasMonths, IHasBusinessDays
 {
     public YearToDate(int? year = null)
         : base(CalculateStartDate(year).Date, CalculateEndDate(year).Date)
     {
-        Months = Enumerable.Range(StartDate.Month, EndDate.Month).ToArray();
-        Weeks = Enumerable.Range(1, EndDate.GetWeekOfYear()).ToArray();
+        Months = new(Enumerable.Range(StartDate.Month, EndDate.Month).ToArray());
+        Weeks = new(Enumerable.Range(1, EndDate.GetWeekOfYear()).ToArray());
     }
 
     public int Year => StartDate.Year;
 
-    public int[] Months { get; }
+    public ReadOnlyCollection<int> Months { get; }
 
-    public int[] Weeks { get; }
+    public ReadOnlyCollection<int> Weeks { get; }
+
+    public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
+    public DateTime LastBusinessDay => EndDate.GetLastBusinessDayOfMonth();
 
     public override string ToString() => $"YTD: {base.ToString()}";
 
     private static DateTime CalculateEndDate(int? year)
     {
-        var startDate = CalculateStartDate(year);
-        var endDate = startDate.AddYears(1).AddDays(-1);
+        var endDate = CalculateStartDate(year).AddYears(1).AddDays(-1);
 
         return endDate > DateTime.UtcNow ? DateTime.UtcNow : endDate;
     }

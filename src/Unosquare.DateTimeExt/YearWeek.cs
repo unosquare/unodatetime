@@ -23,7 +23,7 @@ public class YearWeek : IYearWeekDateRange, IComparable<YearWeek>
     public int Year => _startDate.Year;
 
     public DateTime StartDate => _startDate;
-    public DateTime EndDate => _startDate.AddDays(7);
+    public DateTime EndDate => _startDate.AddDays(6);
 
     public DateRange DateRange => new(_startDate, EndDate);
 

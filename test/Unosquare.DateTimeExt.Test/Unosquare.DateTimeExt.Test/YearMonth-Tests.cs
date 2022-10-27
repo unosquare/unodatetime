@@ -12,6 +12,7 @@ public class YearMonthTests
         Assert.Equal(lastDayOfMonth, yearMonth.EndDate);
         Assert.Equal(DateTime.UtcNow.Date, monthDate.EndDate);
     }
+
     [Fact]
     public void WithQuarter_Deconstruct()
     {
