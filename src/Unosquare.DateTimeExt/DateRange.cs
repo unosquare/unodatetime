@@ -5,10 +5,10 @@ namespace Unosquare.DateTimeExt;
 
 public class DateRange : IReadOnlyDateRange, IComparable<DateRange>, IEnumerable<DateTime>
 {
-    public DateRange(DateTime startDate, DateTime endDate)
+    public DateRange(DateTime startDate, DateTime? endDate = null)
     {
         StartDate = startDate;
-        EndDate = endDate;
+        EndDate = endDate ?? startDate;
     }
 
     public DateTime StartDate { get; }
@@ -21,7 +21,7 @@ public class DateRange : IReadOnlyDateRange, IComparable<DateRange>, IEnumerable
         endDate = EndDate;
     }
 
-    public override string ToString() => $"{StartDate}-{EndDate}";
+    public override string ToString() => $"{StartDate.ToShortDateString()}-{EndDate.ToShortDateString()}";
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -33,6 +33,14 @@ public class DateRange : IReadOnlyDateRange, IComparable<DateRange>, IEnumerable
 
         for (var i = 0; i <= daysDifference; i++)
             yield return StartDate.AddDays(i);
+    }
+
+    public IEnumerable<TK> Select<TK>(Func<DateTime, TK> selector)
+    {
+        using var enumerator = GetEnumerator();
+
+        while (enumerator.MoveNext())
+            yield return selector(enumerator.Current);
     }
 
     public override bool Equals(object? obj) =>

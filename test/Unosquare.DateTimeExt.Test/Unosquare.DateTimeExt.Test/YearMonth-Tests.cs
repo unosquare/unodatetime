@@ -1,28 +1,28 @@
 ﻿namespace Unosquare.DateTimeExt.Test;
 
-public class YearQuarterTests
+public class YearMonthTests
 {
     [Fact]
     public void WithQuarter_Deconstruct()
     {
-        var yearQuarter = new YearQuarter(quarter: 1);
-        yearQuarter.Deconstruct(out DateTime startDate, out var endDate);
+        var yearMonth = new YearMonth(month: 1);
+        yearMonth.Deconstruct(out DateTime startDate, out var endDate);
 
         Assert.Equal(new(2022, 1, 1), startDate);
-        Assert.Equal(new(2022, 3, 31), endDate);
+        Assert.Equal(new(2022, 1, 31), endDate);
     }
 
     [Fact]
     public void WithYearQuarter_ReturnsFormattedString()
     {
-        Assert.Equal("2022-Q1", new YearQuarter(year: 2022, quarter: 1).ToString());
+        Assert.Equal("2022-1", new YearMonth(year: 2022, month: 1).ToString());
     }
 
     [Fact]
     public void WithTwoQuarters_ComparesThem()
     {
-        var yearQuarterOne = new YearQuarter(year: 2022, quarter: 1);
-        var yearQuarterTwo = new YearQuarter(year: 2022, quarter: 2);
+        var yearQuarterOne = new YearMonth(year: 2022, month: 1);
+        var yearQuarterTwo = new YearMonth(year: 2022, month: 2);
 
         Assert.Equal(-1, yearQuarterOne.CompareTo(yearQuarterTwo));
         Assert.Equal(0, yearQuarterOne.CompareTo(yearQuarterOne));

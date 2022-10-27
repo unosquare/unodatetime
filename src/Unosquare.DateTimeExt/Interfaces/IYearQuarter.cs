@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.DateTimeExt.Interfaces;
 
-public interface IYearQuarter : IHasReadOnlyYear
+public interface IYearQuarter : IHasReadOnlyYear, IHasReadOnlyQuarter
 {
-    int Quarter { get; }
 }

@@ -35,6 +35,12 @@ public class YearQuarter : IYearQuarter, IReadOnlyDateRange, IComparable<YearQua
         endDate = EndDate;
     }
 
+    public void Deconstruct(out int year, out int quarter)
+    {
+        year = Year;
+        quarter = Quarter;
+    }
+
     public override string ToString() => $"{Year}-Q{Quarter}";
 
     public int CompareTo(YearQuarter? other)

@@ -9,14 +9,14 @@ public class DateExtensionsTests
         new object[] { new DateTime(2022, 10, 24), new DateTime(2022, 10, 30)}
     };
 
-    public static readonly object[][] monthsRange =
+    public static readonly object[][] MonthsRange =
     {
         new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 12, 01)},
         new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 2, 01)},
         new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 6, 01)}
     };
 
-    public static readonly object[][] normalAndLeapYear =
+    public static readonly object[][] NormalAndLeapYear =
     {
         new object[] { new DateTime(2022, 02, 01), new DateTime(2020, 02, 01)},
     };
@@ -44,8 +44,8 @@ public class DateExtensionsTests
     [Fact]
     public void WithDate_ToUTC()
     {
-        Assert.Equal(new DateTime(2022, 6, 1, 5, 0, 0), new DateTime(2022, 6, 1, 0, 0, 0).ToUtc("Central Standard Time (Mexico)"));
-        Assert.Equal(new DateTime(2022, 6, 1, 5, 0, 0), new DateTime(2022, 6, 1, 0, 0, 0).ToUtc("Invalid Timezone Id"));
+        Assert.Equal(new(2022, 6, 1, 5, 0, 0), new DateTime(2022, 6, 1, 0, 0, 0).ToUtc("Central Standard Time (Mexico)"));
+        Assert.Equal(new(2022, 6, 1, 5, 0, 0), new DateTime(2022, 6, 1, 0, 0, 0).ToUtc("Invalid Timezone Id"));
     }
 
     [Fact]
@@ -59,18 +59,18 @@ public class DateExtensionsTests
     {
         var currentAndLast = new DateTime(2022, 6, 1).GetCurrentAndLastQuarterStartDates();
 
-        Assert.Equal(new DateTime(2022, 4, 1), currentAndLast.CurrentQuarter);
-        Assert.Equal(new DateTime(2022, 1, 1), currentAndLast.LastQuarter);
+        Assert.Equal(new(2022, 4, 1), currentAndLast.CurrentQuarter);
+        Assert.Equal(new(2022, 1, 1), currentAndLast.LastQuarter);
     }
 
     [Fact]
     public void WithQuarter_GetQuarterDateRange()
     {
-        var quarter = 3;
+        const int quarter = 3;
         var range = quarter.GetQuarterDateRange();
 
-        Assert.Equal(new DateTime(2022, 7, 1), range.CurrentQuarter);
-        Assert.Equal(new DateTime(2022, 4, 1), range.LastQuarter);
+        Assert.Equal(new(2022, 7, 1), range.CurrentQuarter);
+        Assert.Equal(new(2022, 4, 1), range.LastQuarter);
     }
 
     [Fact]
@@ -89,7 +89,7 @@ public class DateExtensionsTests
     [Fact]
     public void WithYearAndWeek_GetFirstDateOfWeek()
     {
-        Assert.Equal(new DateTime(2022, 1, 2), DateExtensions.FirstDateOfWeek(2022, 1));
+        Assert.Equal(new(2022, 1, 2), DateExtensions.FirstDateOfWeek(2022, 1));
     }
 
     [Fact]
@@ -97,32 +97,32 @@ public class DateExtensionsTests
     {
         var monthRange = 2022.GetMonthRange(10);
 
-        Assert.Equal(new DateTime(2022, 10, 1), monthRange.StartDate);
-        Assert.Equal(new DateTime(2022, 10, 31), monthRange.EndDate);
+        Assert.Equal(new(2022, 10, 1), monthRange.StartDate);
+        Assert.Equal(new(2022, 10, 31), monthRange.EndDate);
     }
 
     [Fact]
     public void WithDate_GetFirstDayOfMonth()
     {
-        Assert.Equal(new DateTime(2022, 1, 1), new DateTime(2022, 1, 25).GetFirstDayOfMonth());
+        Assert.Equal(new(2022, 1, 1), new DateTime(2022, 1, 25).GetFirstDayOfMonth());
     }
 
     [Fact]
     public void WithDate_GetFirstLastOfMonth()
     {
-        Assert.Equal(new DateTime(2022, 1, 31), new DateTime(2022, 1, 25).GetLastDayOfMonth());
+        Assert.Equal(new(2022, 1, 31), new DateTime(2022, 1, 25).GetLastDayOfMonth());
     }
 
     [Fact]
     public void WithDate_GetLastBusinessDayOfMonth()
     {
-        Assert.Equal(new DateTime(2022, 7, 29), new DateTime(2022, 7, 1).GetLastBusinessDayOfMonth());
+        Assert.Equal(new(2022, 7, 29), new DateTime(2022, 7, 1).GetLastBusinessDayOfMonth());
     }
 
     [Fact]
     public void WithStartAndEndDate_GetBusinessDays()
     {
-        Assert.Equal(5, new DateTime(2022, 10, 1).GetBusinessDays(new DateTime(2022, 10, 7)));
+        Assert.Equal(5, new DateTime(2022, 10, 1).GetBusinessDays(new(2022, 10, 7)));
     }
 
     [Fact]
@@ -132,20 +132,20 @@ public class DateExtensionsTests
     }
 
     [Theory, MemberData(nameof(BusinessAndWeekendDates))]
-    public void WithDate_IsWeekend(DateTime businessDay, DateTime WeekendDay)
+    public void WithDate_IsWeekend(DateTime businessDay, DateTime weekendDay)
     {
         Assert.False(businessDay.IsWeekend());
-        Assert.True(WeekendDay.IsWeekend());
+        Assert.True(weekendDay.IsWeekend());
     }
 
-    [Theory, MemberData(nameof(normalAndLeapYear))]
+    [Theory, MemberData(nameof(NormalAndLeapYear))]
     public void WithDate_GetDaysInMonth(DateTime normalYear, DateTime leapYear)
     {
         Assert.Equal(28, normalYear.GetDaysInMonth());
         Assert.Equal(29, leapYear.GetDaysInMonth());
     }
 
-    [Theory, MemberData(nameof(monthsRange))]
+    [Theory, MemberData(nameof(MonthsRange))]
     public void WithDate_DiffMonths(DateTime startDate, DateTime endDate)
     {
         Assert.Equal(endDate.Month - startDate.Month, endDate.DiffMonths(startDate));
