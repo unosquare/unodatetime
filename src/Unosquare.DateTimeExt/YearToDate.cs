@@ -18,6 +18,10 @@ public class YearToDate : DateRange, IHasReadOnlyYear, IHasWeeks, IHasMonths, IH
 
     public ReadOnlyCollection<int> Weeks { get; }
 
+    public YearQuarter Next => new(StartDate.AddYears(1));
+
+    public YearQuarter Previous => new(StartDate.AddYears(-1));
+
     public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
     public DateTime LastBusinessDay => EndDate.GetLastBusinessDayOfMonth();
 

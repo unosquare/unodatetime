@@ -22,7 +22,7 @@ public class DateRangeTests
     [Fact]
     public void WithDateRange_GetEnumerator()
     {
-        var dateRangeEnumerator = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31)).GetEnumerator();
+        using var dateRangeEnumerator = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31)).GetEnumerator();
 
         Assert.True(dateRangeEnumerator.MoveNext());
         Assert.Equal(new(2022, 10, 1), dateRangeEnumerator.Current);
