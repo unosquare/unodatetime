@@ -27,9 +27,9 @@ public class YearWeek : IYearWeekDateRange, IComparable<YearWeek>
 
     public DateRange DateRange => new(_startDate, EndDate);
 
-    public YearMonth Next => new(_startDate.AddDays(7));
+    public YearWeek Next => new(_startDate.AddDays(7));
 
-    public YearMonth Previous => new(_startDate.AddDays(-7));
+    public YearWeek Previous => new(_startDate.AddDays(-7));
 
     public void Deconstruct(out DateTime startDate, out DateTime endDate)
     {
