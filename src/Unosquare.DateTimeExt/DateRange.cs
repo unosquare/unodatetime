@@ -5,6 +5,11 @@ namespace Unosquare.DateTimeExt;
 
 public class DateRange : IReadOnlyDateRange, IComparable<DateRange>, IEnumerable<DateTime>
 {
+    public DateRange()
+        : this(DateTime.UtcNow)
+    {
+    }
+
     public DateRange(DateTime startDate, DateTime? endDate = null)
     {
         StartDate = startDate;
@@ -51,7 +56,7 @@ public class DateRange : IReadOnlyDateRange, IComparable<DateRange>, IEnumerable
         if (ReferenceEquals(this, other))
             return 0;
 
-        if (ReferenceEquals(null, other))
+        if (other is null)
             return 1;
 
         var startDateComparison = StartDate.CompareTo(other.StartDate);

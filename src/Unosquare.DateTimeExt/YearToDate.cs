@@ -3,8 +3,13 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class YearToDate : DateRange, IHasReadOnlyYear, IHasWeeks, IHasMonths, IHasBusinessDays
+public sealed class YearToDate : DateRange, IHasReadOnlyYear, IHasWeeks, IHasMonths, IHasBusinessDays
 {
+    public YearToDate(IHasReadOnlyYear readOnlyYear)
+        : this(readOnlyYear.Year)
+    {
+    }
+
     public YearToDate(int? year = null)
         : base(CalculateStartDate(year).Date, CalculateEndDate(year).Date)
     {

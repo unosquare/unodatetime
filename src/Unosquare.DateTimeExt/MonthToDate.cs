@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.DateTimeExt;
 
-public class MonthToDate : YearMonth
+public sealed class MonthToDate : YearMonth
 {
     public MonthToDate(int? month = null, int? year = null)
         : base(month, year)

@@ -15,6 +15,26 @@ public class YearMonth : IYearMonthDateRange, IHasBusinessDays, IHasWeeks, IComp
         Weeks = new(Enumerable.Range(StartDate.GetWeekOfYear(), EndDate.GetWeekOfYear()).ToArray());
     }
 
+    public YearMonth(IYearMonth yearMonth)
+        : this(yearMonth.Month, yearMonth.Year)
+    {
+    }
+
+    public YearMonth(IHasReadOnlyMonth readOnlyMonth, IHasReadOnlyYear readOnlyYear)
+        : this(readOnlyMonth.Month, readOnlyYear.Year)
+    {
+    }
+
+    public YearMonth(IHasReadOnlyMonth readOnlyMonth, int? year = null)
+        : this(readOnlyMonth.Month, year)
+    {
+    }
+
+    public YearMonth(int month, IHasReadOnlyYear readOnlyYear)
+        : this(month, readOnlyYear.Year)
+    {
+    }
+
     public YearMonth(DateTime dateTime)
         : this(dateTime.Month, dateTime.Year)
     {

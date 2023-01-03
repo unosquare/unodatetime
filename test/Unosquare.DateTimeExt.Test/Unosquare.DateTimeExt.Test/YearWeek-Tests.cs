@@ -15,7 +15,7 @@ public class YearWeekTests
     [Fact]
     public void WithWeek_FromDateTime()
     {
-        var yearMonth = new YearWeek(new(2022, 1, 2));
+        var yearMonth = new YearWeek(new DateTime(2022, 1, 2));
 
         Assert.Equal(1, yearMonth.Week);
         Assert.Equal(2022, yearMonth.Year);

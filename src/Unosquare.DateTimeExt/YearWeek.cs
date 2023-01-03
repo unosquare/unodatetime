@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public class YearWeek : IYearWeekDateRange, IComparable<YearWeek>
+public sealed class YearWeek : IYearWeekDateRange, IComparable<YearWeek>
 {
     private readonly DateTime _startDate;
 
@@ -12,6 +12,26 @@ public class YearWeek : IYearWeekDateRange, IComparable<YearWeek>
             DateExtensions.FirstDateOfWeek(year ?? DateTime.UtcNow.Year, week ?? DateTime.UtcNow.GetWeekOfYear());
 
         Week = _startDate.GetWeekOfYear();
+    }
+
+    public YearWeek(IYearWeek yearWeek)
+        : this(yearWeek.Week, yearWeek.Year)
+    {
+    }
+
+    public YearWeek(IHasReadOnlyWeek readOnlyWeek, IHasReadOnlyYear readOnlyYear)
+        : this(readOnlyWeek.Week, readOnlyYear.Year)
+    {
+    }
+
+    public YearWeek(IHasReadOnlyWeek readOnlyWeek, int? year = null)
+        : this(readOnlyWeek.Week, year)
+    {
+    }
+
+    public YearWeek(int week, IHasReadOnlyYear readOnlyYear)
+        : this(week, readOnlyYear.Year)
+    {
     }
 
     public YearWeek(DateTime dateTime)
@@ -50,6 +70,6 @@ public class YearWeek : IYearWeekDateRange, IComparable<YearWeek>
         if (ReferenceEquals(this, other))
             return 0;
 
-        return ReferenceEquals(null, other) ? 1 : _startDate.CompareTo(other._startDate);
+        return other is null ? 1 : _startDate.CompareTo(other._startDate);
     }
 }

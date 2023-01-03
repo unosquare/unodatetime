@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public class YearQuarter : IYearQuarterDateRange, IComparable<YearQuarter>
+public sealed class YearQuarter : IYearQuarterDateRange, IComparable<YearQuarter>
 {
     private readonly DateTime _startDate;
 
@@ -10,6 +10,26 @@ public class YearQuarter : IYearQuarterDateRange, IComparable<YearQuarter>
         year ?? DateTime.UtcNow.Year,
         ((quarter ?? DateTime.UtcNow.GetQuarter()) - 1) * 3 + 1,
         1);
+
+    public YearQuarter(IYearQuarter yearQuarter)
+        : this(yearQuarter.Quarter, yearQuarter.Year)
+    {
+    }
+
+    public YearQuarter(IHasReadOnlyQuarter readOnlyQuarter, IHasReadOnlyYear readOnlyYear)
+        : this(readOnlyQuarter.Quarter, readOnlyYear.Year)
+    {
+    }
+
+    public YearQuarter(IHasReadOnlyQuarter readOnlyQuarter, int? year = null)
+        : this(readOnlyQuarter.Quarter, year)
+    {
+    }
+
+    public YearQuarter(int quarter, IHasReadOnlyYear readOnlyYear)
+        : this(quarter, readOnlyYear.Year)
+    {
+    }
 
     public YearQuarter(DateTime dateTime)
         : this(dateTime.GetQuarter(), dateTime.Year)
@@ -48,6 +68,6 @@ public class YearQuarter : IYearQuarterDateRange, IComparable<YearQuarter>
         if (ReferenceEquals(this, other))
             return 0;
 
-        return ReferenceEquals(null, other) ? 1 : _startDate.CompareTo(other._startDate);
+        return other is null ? 1 : _startDate.CompareTo(other._startDate);
     }
 }

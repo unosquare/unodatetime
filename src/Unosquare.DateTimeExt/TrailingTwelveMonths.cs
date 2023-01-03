@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public class TrailingTwelveMonths : DateRange
+public sealed class TrailingTwelveMonths : DateRange
 {
     public TrailingTwelveMonths(DateTime? endDate = null)
         : base((endDate ?? DateTime.UtcNow).AddMonths(-12).Date, (endDate ?? DateTime.UtcNow).Date)

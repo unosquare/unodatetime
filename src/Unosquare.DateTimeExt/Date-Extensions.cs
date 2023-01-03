@@ -145,6 +145,7 @@ public static class DateExtensions
     {
         var diffYears = Math.Abs(endDate.Year - startDate.Year);
         var diffMonths = endDate.Month - startDate.Month;
+
         return (diffYears * 12) + diffMonths;
     }
 
