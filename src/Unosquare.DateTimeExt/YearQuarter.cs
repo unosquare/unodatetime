@@ -2,14 +2,14 @@
 
 namespace Unosquare.DateTimeExt;
 
-public sealed class YearQuarter : IYearQuarterDateRange, IComparable<YearQuarter>
+public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQuarter>
 {
-    private readonly DateTime _startDate;
+    private const int QuarterMonths = 3;
 
-    public YearQuarter(int? quarter = null, int? year = null) => _startDate = new(
-        year ?? DateTime.UtcNow.Year,
-        ((quarter ?? DateTime.UtcNow.GetQuarter()) - 1) * 3 + 1,
-        1);
+    public YearQuarter(int? quarter = null, int? year = null)
+        : base(GetStartDate(quarter, year), GetStartDate(quarter, year).AddMonths(QuarterMonths).AddDays(-1))
+    {
+    }
 
     public YearQuarter(IYearQuarter yearQuarter)
         : this(yearQuarter.Quarter, yearQuarter.Year)
@@ -37,23 +37,19 @@ public sealed class YearQuarter : IYearQuarterDateRange, IComparable<YearQuarter
 
     }
 
-    public int Quarter => _startDate.GetQuarter();
-    public int Year => _startDate.Year;
+    public int Quarter => StartDate.GetQuarter();
+    public int Year => StartDate.Year;
 
-    public DateTime StartDate => _startDate;
-    public DateTime EndDate => _startDate.AddMonths(3).AddDays(-1);
+    public YearQuarter Next => new(StartDate.AddMonths(QuarterMonths));
 
-    public DateRange DateRange => new(_startDate, EndDate);
+    public YearQuarter Previous => new(StartDate.AddMonths(-QuarterMonths));
 
-    public YearQuarter Next => new(_startDate.AddMonths(3));
+    private static DateTime GetStartDate(int? quarter = null, int? year = null) => new(
+        year ?? DateTime.UtcNow.Year,
+        ((quarter ?? DateTime.UtcNow.GetQuarter()) - 1) * QuarterMonths + 1,
+        1);
 
-    public YearQuarter Previous => new(_startDate.AddMonths(-3));
-
-    public void Deconstruct(out DateTime startDate, out DateTime endDate)
-    {
-        startDate = StartDate;
-        endDate = EndDate;
-    }
+    public YearWeek AddQuarters(int count) => new(StartDate.AddMonths(QuarterMonths * count));
 
     public void Deconstruct(out int year, out int quarter)
     {
@@ -68,6 +64,6 @@ public sealed class YearQuarter : IYearQuarterDateRange, IComparable<YearQuarter
         if (ReferenceEquals(this, other))
             return 0;
 
-        return other is null ? 1 : _startDate.CompareTo(other._startDate);
+        return other is null ? 1 : base.CompareTo(other);
     }
 }

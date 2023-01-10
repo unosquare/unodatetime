@@ -3,15 +3,11 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class YearMonth : IYearMonthDateRange, IHasBusinessDays, IHasWeeks, IComparable<YearMonth>
+public class YearMonth : DateRange, IYearMonthDateRange, IHasBusinessDays, IHasWeeks, IComparable<YearMonth>
 {
     public YearMonth(int? month = null, int? year = null)
+        : base(GetStartDate(month, year), GetStartDate(month, year).GetLastDayOfMonth())
     {
-        StartDate = new(
-            year ?? DateTime.UtcNow.Year,
-            month ?? DateTime.UtcNow.Month,
-            1);
-
         Weeks = new(Enumerable.Range(StartDate.GetWeekOfYear(), EndDate.GetWeekOfYear()).ToArray());
     }
 
@@ -45,24 +41,19 @@ public class YearMonth : IYearMonthDateRange, IHasBusinessDays, IHasWeeks, IComp
 
     public ReadOnlyCollection<int> Weeks { get; }
 
-    public DateTime StartDate { get; }
-
-    public DateTime EndDate => StartDate.GetLastDayOfMonth();
-
     public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
     public DateTime LastBusinessDay => StartDate.GetLastBusinessDayOfMonth();
-
-    public DateRange DateRange => new(StartDate, EndDate);
 
     public YearMonth Next => new(StartDate.AddMonths(1));
 
     public YearMonth Previous => new(StartDate.AddMonths(-1));
 
-    public void Deconstruct(out DateTime startDate, out DateTime endDate)
-    {
-        startDate = StartDate;
-        endDate = EndDate;
-    }
+    private static DateTime GetStartDate(int? month = null, int? year = null) => new(
+        year ?? DateTime.UtcNow.Year,
+        month ?? DateTime.UtcNow.Month,
+        1);
+
+    public YearWeek AddMonths(int count) => new(StartDate.AddMonths(count));
 
     public void Deconstruct(out int year, out int month)
     {
@@ -77,6 +68,6 @@ public class YearMonth : IYearMonthDateRange, IHasBusinessDays, IHasWeeks, IComp
         if (ReferenceEquals(this, other))
             return 0;
 
-        return ReferenceEquals(null, other) ? 1 : StartDate.CompareTo(other.StartDate);
+        return other is null ? 1 : base.CompareTo(other);
     }
 }

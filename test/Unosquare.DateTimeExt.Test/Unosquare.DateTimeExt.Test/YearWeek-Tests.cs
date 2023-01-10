@@ -31,6 +31,38 @@ public class YearWeekTests
     }
 
     [Fact]
+    public void WithWeek_AddWeeksNegative()
+    {
+        var yearMonth = new YearWeek(2, 2022);
+
+        Assert.Equal(new(2022, 1, 2), yearMonth.AddWeeks(-1).StartDate);
+    }
+
+    [Fact]
+    public void WithWeek_AddWeeksPositive()
+    {
+        var yearMonth = new YearWeek(1, 2022);
+
+        Assert.Equal(new(2022, 1, 9), yearMonth.AddWeeks(1).StartDate);
+    }
+
+    [Fact]
+    public void WithWeek_Previous()
+    {
+        var yearMonth = new YearWeek(2, 2022);
+
+        Assert.Equal(new(2022, 1, 2), yearMonth.Previous.StartDate);
+    }
+
+    [Fact]
+    public void WithWeek_Next()
+    {
+        var yearMonth = new YearWeek(1, 2022);
+
+        Assert.Equal(new(2022, 1, 9), yearMonth.Next.StartDate);
+    }
+
+    [Fact]
     public void WithWeek_DeconstructYearMonth()
     {
         var yearMonth = new YearWeek(1, 2022);

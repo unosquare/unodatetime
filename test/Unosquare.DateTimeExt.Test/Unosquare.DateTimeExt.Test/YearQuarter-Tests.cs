@@ -8,8 +8,8 @@ public class YearQuarterTests
         var yearQuarter = new YearQuarter(quarter: 1);
         yearQuarter.Deconstruct(out DateTime startDate, out var endDate);
 
-        Assert.Equal(new(2022, 1, 1), startDate);
-        Assert.Equal(new(2022, 3, 31), endDate);
+        Assert.Equal(new(DateTime.UtcNow.Year, 1, 1), startDate);
+        Assert.Equal(new(DateTime.UtcNow.Year, 3, 31), endDate);
     }
 
     [Fact]

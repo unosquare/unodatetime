@@ -3,7 +3,7 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class DateRange : IReadOnlyDateRange, IComparable<DateRange>, IEnumerable<DateTime>
+public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>
 {
     public DateRange()
         : this(DateTime.UtcNow)
@@ -19,6 +19,8 @@ public class DateRange : IReadOnlyDateRange, IComparable<DateRange>, IEnumerable
     public DateTime StartDate { get; }
 
     public DateTime EndDate { get; }
+
+    public DateTime MidnightEndDate => EndDate.Date.AddDays(1).AddSeconds(-1);
 
     public void Deconstruct(out DateTime startDate, out DateTime endDate)
     {

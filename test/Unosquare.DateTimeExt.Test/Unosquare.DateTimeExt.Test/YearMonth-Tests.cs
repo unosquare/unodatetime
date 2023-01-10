@@ -19,8 +19,8 @@ public class YearMonthTests
         var yearMonth = new YearMonth(month: 1);
         yearMonth.Deconstruct(out DateTime startDate, out var endDate);
 
-        Assert.Equal(new(2022, 1, 1), startDate);
-        Assert.Equal(new(2022, 1, 31), endDate);
+        Assert.Equal(new(DateTime.UtcNow.Year, 1, 1), startDate);
+        Assert.Equal(new(DateTime.UtcNow.Year, 1, 31), endDate);
     }
 
     [Fact]

@@ -139,6 +139,9 @@ public static class DateExtensions
     public static bool IsWeekend(this DateTime date) =>
         date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday;
 
+    public static DateTime ToMidnight(this DateTime date) =>
+        date.Date.AddDays(1).AddSeconds(-1);
+
     public static int GetDaysInMonth(this DateTime date) => DateTime.DaysInMonth(date.Year, date.Month);
 
     public static int DiffMonths(this DateTime endDate, DateTime startDate)
