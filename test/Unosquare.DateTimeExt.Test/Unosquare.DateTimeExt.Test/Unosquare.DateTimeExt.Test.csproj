@@ -23,5 +23,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Unosquare.DateTimeExt\Unosquare.DateTimeExt.csproj" />
   </ItemGroup>
-
 </Project>

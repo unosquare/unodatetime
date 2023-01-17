@@ -19,6 +19,12 @@ public class YearQuarterTests
     }
 
     [Fact]
+    public void WithYearQuarter_ReturnsMonths()
+    {
+        Assert.Equal(3, new YearQuarter(year: 2022, quarter: 1).Months.Count);
+    }
+
+    [Fact]
     public void WithTwoQuarters_ComparesThem()
     {
         var yearQuarterOne = new YearQuarter(year: 2022, quarter: 1);

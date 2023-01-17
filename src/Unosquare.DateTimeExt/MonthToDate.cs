@@ -7,12 +7,12 @@ public sealed class MonthToDate : YearMonth
     {
     }
 
-    public MonthToDate(DateTime dateTime)
+    public MonthToDate(DateTime? dateTime)
         : base(dateTime)
     {
     }
 
-    public new DateTime EndDate => base.EndDate > DateTime.UtcNow.Date ? DateTime.UtcNow.Date : base.EndDate;
+    public new DateTime EndDate => base.EndDate.OrToday();
 
     public override string ToString() => $"MTD: {base.ToString()}";
 }

@@ -32,8 +32,8 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
     {
     }
 
-    public YearWeek(DateTime dateTime)
-        : this(dateTime.GetWeekOfYear(), dateTime.Year)
+    public YearWeek(DateTime? dateTime)
+        : this((dateTime ?? DateTime.UtcNow).GetWeekOfYear(), (dateTime ?? DateTime.UtcNow).Year)
     {
     }
 
@@ -55,6 +55,8 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
         DateExtensions.FirstDateOfWeek(year ?? DateTime.UtcNow.Year, week ?? DateTime.UtcNow.GetWeekOfYear());
 
     public YearWeek AddWeeks(int count) => new(StartDate.AddDays(WeekDays * count));
+
+    public YearWeek ToWeek(int? week) => new(week, Year);
 
     public void Deconstruct(out int year, out int week)
     {

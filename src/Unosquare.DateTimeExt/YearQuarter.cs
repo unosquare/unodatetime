@@ -32,10 +32,9 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
     {
     }
 
-    public YearQuarter(DateTime dateTime)
-        : this(dateTime.GetQuarter(), dateTime.Year)
+    public YearQuarter(DateTime? dateTime)
+        : this((dateTime ?? DateTime.UtcNow).GetQuarter(), (dateTime ?? DateTime.UtcNow).Year)
     {
-
     }
 
     public int Quarter { get; }
@@ -52,7 +51,9 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
 
     public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
 
-    public YearWeek AddQuarters(int count) => new(StartDate.AddMonths(QuarterMonths * count));
+    public YearQuarter AddQuarters(int count) => new(StartDate.AddMonths(QuarterMonths * count));
+
+    public YearQuarter ToQuarter(int? quarter) => new(quarter, Year);
 
     public void Deconstruct(out int year, out int quarter)
     {

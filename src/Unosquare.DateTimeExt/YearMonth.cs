@@ -29,8 +29,8 @@ public class YearMonth : DateRange, IYearMonthDateRange, IComparable<YearMonth>
     {
     }
 
-    public YearMonth(DateTime dateTime)
-        : this(dateTime.Month, dateTime.Year)
+    public YearMonth(DateTime? dateTime)
+        : this((dateTime ?? DateTime.UtcNow).Month, (dateTime ?? DateTime.UtcNow).Year)
     {
     }
 
@@ -77,10 +77,7 @@ public class YearMonth : DateRange, IYearMonthDateRange, IComparable<YearMonth>
 
     public YearMonth AddMonths(int count) => new(StartDate.AddMonths(count));
 
-    public YearMonth ToMonth(int month) =>
-        month is < 1 or > 12
-            ? throw new ArgumentOutOfRangeException(nameof(month))
-            : new YearMonth(month, Year);
+    public YearMonth ToMonth(int? month) => new(month, Year);
 
     public void Deconstruct(out int year, out int month)
     {

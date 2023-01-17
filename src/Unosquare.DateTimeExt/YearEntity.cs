@@ -7,8 +7,8 @@ public sealed class YearEntity : YearAbstract
     {
     }
 
-    public YearEntity(DateTime dateTime)
-        : this(dateTime.Year)
+    public YearEntity(DateTime? dateTime)
+        : this((dateTime ?? DateTime.UtcNow).Year)
     {
     }
 }
