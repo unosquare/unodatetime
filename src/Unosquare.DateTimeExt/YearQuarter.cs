@@ -39,6 +39,8 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
 
     public int Quarter => StartDate.GetQuarter();
     public int Year => StartDate.Year;
+    
+    public YearEntity YearEntity => new(Year);
 
     public YearQuarter Next => new(StartDate.AddMonths(QuarterMonths));
 

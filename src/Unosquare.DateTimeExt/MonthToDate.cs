@@ -8,7 +8,7 @@ public sealed class MonthToDate : YearMonth
     }
 
     public MonthToDate(DateTime dateTime)
-        : this(dateTime.Month, dateTime.Year)
+        : base(dateTime)
     {
     }
 

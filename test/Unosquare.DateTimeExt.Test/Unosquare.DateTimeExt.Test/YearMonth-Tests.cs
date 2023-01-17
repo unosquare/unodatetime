@@ -14,7 +14,13 @@ public class YearMonthTests
     }
 
     [Fact]
-    public void WithQuarter_Deconstruct()
+    public void WithMonth_OutOfRange()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new YearMonth(month: 13, year: 2022));
+    }
+
+    [Fact]
+    public void WithMonth_Deconstruct()
     {
         var yearMonth = new YearMonth(month: 1);
         yearMonth.Deconstruct(out DateTime startDate, out var endDate);
@@ -24,9 +30,43 @@ public class YearMonthTests
     }
 
     [Fact]
-    public void WithYearQuarter_ReturnsFormattedString()
+    public void WithMonth_Next()
+    {
+        var yearMonth = new YearMonth(month: 1, year: 2022);
+
+        Assert.Equal(new(2022, 2, 1), yearMonth.Next.StartDate);
+    }
+
+    [Fact]
+    public void WithMonth_ToMonth()
+    {
+        var yearMonth = new YearMonth(month: 1, year: 2022);
+        var endYear = yearMonth.ToMonth(12);
+
+        Assert.Equal(new(2022, 12, 1), endYear.StartDate);
+    }
+
+    [Fact]
+    public void WithMonth_AddMonths()
+    {
+        var yearMonth = new YearMonth(month: 1, year: 2022);
+        var endYear = yearMonth.AddMonths(11);
+
+        Assert.Equal(new(2022, 12, 1), endYear.StartDate);
+    }
+
+    [Fact]
+    public void WithYearMonth_ReturnsFormattedString()
     {
         Assert.Equal("2022-1", new YearMonth(year: 2022, month: 1).ToString());
+    }
+
+    [Fact]
+    public void WithYearMonth_TryParse()
+    {
+        var result = YearMonth.TryParse("2022-1", out var dateRange);
+        Assert.True(result);
+        Assert.Equal(new(year: 2022, month: 1), dateRange);
     }
 
     [Fact]

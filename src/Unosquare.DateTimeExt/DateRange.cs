@@ -3,7 +3,8 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>
+public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>,
+    IHasWeeks, IHasMonths, IHasBusinessDays, IHasQuarters
 {
     public DateRange()
         : this(DateTime.UtcNow)
@@ -14,6 +15,10 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
     {
         StartDate = startDate;
         EndDate = endDate ?? startDate;
+
+        Weeks = Enumerable.Range(StartDate.GetWeekOfYear(), EndDate.GetWeekOfYear()).ToArray();
+        Months = Enumerable.Range(StartDate.Month, EndDate.Month).ToArray();
+        Quarters = Enumerable.Range(StartDate.GetQuarter(), EndDate.GetQuarter()).ToArray();
     }
 
     public DateTime StartDate { get; }
@@ -21,6 +26,18 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
     public DateTime EndDate { get; }
 
     public DateTime MidnightEndDate => EndDate.Date.AddDays(1).AddSeconds(-1);
+
+    public IReadOnlyCollection<int> Weeks { get; }
+
+    public IReadOnlyCollection<int> Months { get; }
+
+    public IReadOnlyCollection<int> Quarters { get; }
+
+    public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
+
+    public DateTime LastBusinessDay => EndDate.GetLastBusinessDayOfMonth();
+
+    public int DaysInBetween => (EndDate - StartDate).Days;
 
     public void Deconstruct(out DateTime startDate, out DateTime endDate)
     {
@@ -36,9 +53,7 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
 
     public IEnumerator<DateTime> GetEnumerator()
     {
-        var daysDifference = (EndDate - StartDate).Days;
-
-        for (var i = 0; i <= daysDifference; i++)
+        for (var i = 0; i <= DaysInBetween; i++)
             yield return StartDate.AddDays(i);
     }
 
@@ -65,4 +80,12 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
 
         return startDateComparison != 0 ? startDateComparison : EndDate.CompareTo(other.EndDate);
     }
+
+    public static bool operator ==(DateRange? left, DateRange? right) => left?.Equals(right) ?? right is null;
+
+    public static bool operator >(DateRange left, DateRange right) => left.StartDate > right.StartDate;
+
+    public static bool operator <(DateRange left, DateRange right) => left.EndDate < right.EndDate;
+
+    public static bool operator !=(DateRange left, DateRange right) => !(left == right);
 }

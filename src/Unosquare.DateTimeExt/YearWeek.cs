@@ -40,6 +40,9 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
     public int Week { get; }
     public int Year => StartDate.Year;
 
+    public YearEntity BoWYearEntity => new(StartDate.Year);
+    public YearEntity EoWYearEntity => new(EndDate.Year);
+
     public YearWeek Next => new(StartDate.AddDays(WeekDays));
 
     public YearWeek Previous => new(StartDate.AddDays(-WeekDays));
