@@ -43,6 +43,10 @@ public class YearMonth : DateRange, IYearMonthDateRange, IComparable<YearMonth>
 
     public YearMonth Previous => new(StartDate.AddMonths(-1));
 
+    public bool IsCurrent => Month == DateTime.UtcNow.Month && IsCurrentYear;
+
+    public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
+
     private static DateTime GetStartDate(int? month = null, int? year = null) => new(
         year ?? DateTime.UtcNow.Year,
         month ?? DateTime.UtcNow.Month,

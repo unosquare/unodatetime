@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public sealed class YearToDate : DateRange, IHasReadOnlyYear
+public sealed class YearToDate : YearAbstract
 {
     public YearToDate(IHasReadOnlyYear readOnlyYear)
         : this(readOnlyYear.Year)
@@ -14,22 +14,11 @@ public sealed class YearToDate : DateRange, IHasReadOnlyYear
     {
     }
 
-    public int Year => StartDate.Year;
-
     public YearEntity YearEntity => new(Year);
-
-    public YearQuarter Next => new(StartDate.AddYears(1));
-
-    public YearQuarter Previous => new(StartDate.AddYears(-1));
 
     public override string ToString() => $"YTD: {base.ToString()}";
 
-    private static DateTime CalculateEndDate(int? year)
-    {
-        var endDate = CalculateStartDate(year).AddYears(1).AddDays(-1);
-
-        return endDate > DateTime.UtcNow ? DateTime.UtcNow : endDate;
-    }
+    private static DateTime CalculateEndDate(int? year) => CalculateStartDate(year).AddYears(1).AddDays(-1).OrUtcNow();
 
     private static DateTime CalculateStartDate(int? year) => new(year ?? DateTime.UtcNow.Year, 1, 1);
 }

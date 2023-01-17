@@ -47,6 +47,10 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
 
     public YearWeek Previous => new(StartDate.AddDays(-WeekDays));
 
+    public bool IsCurrent => Week == DateTime.UtcNow.GetWeekOfYear() && IsCurrentYear;
+
+    public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
+
     private static DateTime GetStartDate(int? week = null, int? year = null) =>
         DateExtensions.FirstDateOfWeek(year ?? DateTime.UtcNow.Year, week ?? DateTime.UtcNow.GetWeekOfYear());
 

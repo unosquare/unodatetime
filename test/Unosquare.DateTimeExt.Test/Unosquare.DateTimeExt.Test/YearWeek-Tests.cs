@@ -63,6 +63,14 @@ public class YearWeekTests
     }
 
     [Fact]
+    public void WithWeek_IsCurrent()
+    {
+        var yearMonth = new YearWeek();
+
+        Assert.True(yearMonth.IsCurrent);
+    }
+
+    [Fact]
     public void WithWeek_DeconstructYearMonth()
     {
         var yearMonth = new YearWeek(1, 2022);

@@ -55,25 +55,6 @@ public class DateExtensionsTests
     }
 
     [Fact]
-    public void WithDate_GetCurrentAndLastQuarter()
-    {
-        var currentAndLast = new DateTime(DateTime.UtcNow.Year, 6, 1).GetCurrentAndLastQuarterStartDates();
-
-        Assert.Equal(new(DateTime.UtcNow.Year, 4, 1), currentAndLast.CurrentQuarter);
-        Assert.Equal(new(DateTime.UtcNow.Year, 1, 1), currentAndLast.LastQuarter);
-    }
-
-    [Fact]
-    public void WithQuarter_GetQuarterDateRange()
-    {
-        const int quarter = 3;
-        var (current, last) = quarter.GetQuarterDateRange(2022);
-
-        Assert.Equal(new(2022, 7, 1), current);
-        Assert.Equal(new(2022, 4, 1), last);
-    }
-
-    [Fact]
     public void WithString_ToDateOrNull()
     {
         Assert.Null("not a date format string".ToDateOrNull());
@@ -90,15 +71,6 @@ public class DateExtensionsTests
     public void WithYearAndWeek_GetFirstDateOfWeek()
     {
         Assert.Equal(new(2022, 1, 2), DateExtensions.FirstDateOfWeek(2022, 1));
-    }
-
-    [Fact]
-    public void WithYearAndMonth_GetMontRange()
-    {
-        var monthRange = 2022.GetMonthRange(10);
-
-        Assert.Equal(new(2022, 10, 1), monthRange.StartDate);
-        Assert.Equal(new(2022, 10, 31), monthRange.EndDate);
     }
 
     [Fact]

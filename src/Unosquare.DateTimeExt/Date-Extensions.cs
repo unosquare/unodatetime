@@ -28,21 +28,6 @@ public static class DateExtensions
 
     public static int GetQuarter(this DateTime @this) => (@this.Month - 1) / 3 + 1;
 
-    public static (DateTime CurrentQuarter, DateTime LastQuarter) GetCurrentAndLastQuarterStartDates(
-        this DateTime @this)
-    {
-        var quarterNumber = @this.GetQuarter();
-        return GetQuarterDateRange(quarterNumber);
-    }
-
-    public static (DateTime CurrentQuarter, DateTime LastQuarter) GetQuarterDateRange(this int @this,
-        int? year = null)
-    {
-        var targetYear = year ?? DateTime.UtcNow.Year;
-        var currentQuarter = new DateTime(targetYear, (@this - 1) * 3 + 1, 1);
-        return (currentQuarter, currentQuarter.AddMonths(-3));
-    }
-
     public static DateTime? ToDateOrNull(this string @this) =>
         !DateTime.TryParse(@this, out var value) ? null : value;
 
@@ -68,17 +53,6 @@ public static class DateExtensions
         }
 
         return firstDayOfFirstWeek.AddDays((weekOfYear - 1) * 7);
-    }
-
-    public static DateRange GetMonthRange(this int year, int month) =>
-        new DateTime(year, month, 1).GetMonthRange();
-
-    public static DateRange GetMonthRange(this DateTime date)
-    {
-        var startDate = date.GetFirstDayOfMonth();
-        var endDate = startDate.GetLastDayOfMonth();
-
-        return new(startDate, endDate);
     }
 
     public static DateTime GetFirstDayOfMonth(this DateTime date) => new(date.Year, date.Month, 1);
@@ -151,6 +125,15 @@ public static class DateExtensions
 
         return (diffYears * 12) + diffMonths;
     }
+
+    public static DateTime OrUtcNow(this DateTime date) =>
+        date > DateTime.UtcNow ? DateTime.UtcNow : date;
+
+    public static DateTime OrNow(this DateTime date) =>
+        date > DateTime.Now ? DateTime.Now : date;
+
+    public static DateTime OrToday(this DateTime date) =>
+        date > DateTime.Today ? DateTime.Today : date;
 
     public static YearQuarter ToYearQuarter(this DateTime date) => new(date);
     public static YearMonth ToYearMonth(this DateTime date) => new(date);

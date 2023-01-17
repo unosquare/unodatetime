@@ -9,6 +9,7 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
     public YearQuarter(int? quarter = null, int? year = null)
         : base(GetStartDate(quarter, year), GetStartDate(quarter, year).AddMonths(QuarterMonths).AddDays(-1))
     {
+        Quarter = StartDate.GetQuarter();
     }
 
     public YearQuarter(IYearQuarter yearQuarter)
@@ -37,19 +38,19 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
 
     }
 
-    public int Quarter => StartDate.GetQuarter();
+    public int Quarter { get; }
+
     public int Year => StartDate.Year;
-    
+
     public YearEntity YearEntity => new(Year);
 
     public YearQuarter Next => new(StartDate.AddMonths(QuarterMonths));
 
     public YearQuarter Previous => new(StartDate.AddMonths(-QuarterMonths));
 
-    private static DateTime GetStartDate(int? quarter = null, int? year = null) => new(
-        year ?? DateTime.UtcNow.Year,
-        ((quarter ?? DateTime.UtcNow.GetQuarter()) - 1) * QuarterMonths + 1,
-        1);
+    public bool IsCurrent => Quarter == DateTime.UtcNow.GetQuarter() && IsCurrentYear;
+
+    public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
 
     public YearWeek AddQuarters(int count) => new(StartDate.AddMonths(QuarterMonths * count));
 
@@ -68,4 +69,9 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
 
         return other is null ? 1 : base.CompareTo(other);
     }
+
+    private static DateTime GetStartDate(int? quarter = null, int? year = null) => new(
+        year ?? DateTime.UtcNow.Year,
+        ((quarter ?? DateTime.UtcNow.GetQuarter()) - 1) * QuarterMonths + 1,
+        1);
 }
