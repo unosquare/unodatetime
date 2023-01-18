@@ -3,8 +3,7 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>,
-    IHasMonths, IHasBusinessDays, IHasQuarters
+public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>, IHasBusinessDays
 {
     public DateRange()
         : this(DateTime.UtcNow)
@@ -19,8 +18,6 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
         if (EndDate < StartDate)
             throw new ArgumentOutOfRangeException(nameof(EndDate), "End Date should be after Start Date");
 
-        Months = Enumerable.Range(StartDate.Month, EndDate.Month - StartDate.Month + 1).ToArray();
-        Quarters = Enumerable.Range(StartDate.GetQuarter(), EndDate.GetQuarter() - StartDate.GetQuarter() + 1).ToArray();
     }
 
     public DateTime StartDate { get; }
@@ -28,10 +25,6 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
     public DateTime EndDate { get; }
 
     public DateTime MidnightEndDate => EndDate.Date.AddDays(1).AddSeconds(-1);
-
-    public IReadOnlyCollection<int> Months { get; }
-
-    public IReadOnlyCollection<int> Quarters { get; }
 
     public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
 

@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQuarter>
+public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQuarter>, IHasMonths
 {
     private const int QuarterMonths = 3;
 
@@ -10,6 +10,8 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
         : base(GetStartDate(quarter, year), GetStartDate(quarter, year).AddMonths(QuarterMonths).AddDays(-1))
     {
         Quarter = StartDate.GetQuarter();
+
+        Months = Enumerable.Range(StartDate.Month, EndDate.Month - StartDate.Month + 1).ToArray();
     }
 
     public YearQuarter(IYearQuarter yearQuarter)
@@ -40,6 +42,8 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
     public int Quarter { get; }
 
     public int Year => StartDate.Year;
+    
+    public IReadOnlyCollection<int> Months { get; }
 
     public YearEntity YearEntity => new(Year);
 
