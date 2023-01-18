@@ -60,4 +60,12 @@ public class DateRangeTests
         Assert.Equal(2, dateRangeSelected.Count());
     }
 
+    [Fact]
+    public void WithDateRanges_ReturnsCounts()
+    {
+        var result = new DateRange(new(2022, 9, 1), new DateTime(2022, 12, 1));
+
+        Assert.Equal(4, result.Months.Count);
+        Assert.Equal(2, result.Quarters.Count);
+    }
 }
