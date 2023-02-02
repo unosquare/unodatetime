@@ -42,7 +42,7 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
     public int Quarter { get; }
 
     public int Year => StartDate.Year;
-    
+
     public IReadOnlyCollection<int> Months { get; }
 
     public YearEntity YearEntity => new(Year);

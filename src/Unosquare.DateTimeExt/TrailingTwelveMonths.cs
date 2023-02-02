@@ -2,16 +2,23 @@
 
 namespace Unosquare.DateTimeExt;
 
-public sealed class TrailingTwelveMonths : DateRange
+public sealed class TrailingTwelveMonths : DateRange, IHasYearMonths
 {
     private const int Twelve = 12;
-
-    private readonly int _monthsAgo;
 
     public TrailingTwelveMonths(DateTime? endDate = null, int monthsAgo = Twelve)
         : base((endDate ?? DateTime.UtcNow).AddMonths(-monthsAgo).Date, (endDate ?? DateTime.UtcNow).Date)
     {
-        _monthsAgo = monthsAgo;
+        var months = new List<YearMonth>();
+        var current = new YearMonth(StartDate);
+
+        for (var i = 0; i < monthsAgo; i++)
+        {
+            months.Add(current);
+            current = current.Next;
+        }
+
+        YearMonths = months;
     }
 
     public TrailingTwelveMonths(IYearMonth yearMonth, int monthsAgo = Twelve)
@@ -19,7 +26,9 @@ public sealed class TrailingTwelveMonths : DateRange
     {
     }
 
-    public override string ToString() => _monthsAgo == Twelve
+    public IReadOnlyCollection<YearMonth> YearMonths { get; }
+
+    public override string ToString() => YearMonths.Count == Twelve
         ? $"TTM: {base.ToString()}"
-        : $"Trailing {_monthsAgo} Months: {base.ToString()}";
+        : $"Trailing {YearMonths.Count} Months: {base.ToString()}";
 }
