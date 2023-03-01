@@ -16,7 +16,7 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
         EndDate = endDate ?? startDate;
 
         if (EndDate < StartDate)
-            throw new ArgumentOutOfRangeException(nameof(EndDate), "End Date should be after Start Date");
+            throw new ArgumentOutOfRangeException(nameof(endDate), "End Date should be after Start Date");
 
     }
 
