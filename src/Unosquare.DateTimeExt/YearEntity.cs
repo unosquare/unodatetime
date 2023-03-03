@@ -11,4 +11,6 @@ public sealed class YearEntity : YearAbstract
         : this((dateTime ?? DateTime.UtcNow).Year)
     {
     }
+
+    public static YearEntity Current => new();
 }

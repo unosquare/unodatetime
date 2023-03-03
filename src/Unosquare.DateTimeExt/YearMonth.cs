@@ -34,6 +34,8 @@ public class YearMonth : DateRange, IYearMonthDateRange, IComparable<YearMonth>
     {
     }
 
+    public static YearMonth Current => new();
+
     public int Month => StartDate.Month;
     public int Year => StartDate.Year;
 
@@ -79,13 +81,17 @@ public class YearMonth : DateRange, IYearMonthDateRange, IComparable<YearMonth>
 
     public YearMonth ToMonth(int? month) => new(month, Year);
 
+    public DateTime Day(int day) => new(Year, Month, day);
+
+    public DateOnly DayOnly(int day) => new(Year, Month, day);
+
     public void Deconstruct(out int year, out int month)
     {
         year = Year;
         month = Month;
     }
 
-    public override string ToString() => $"{Year}-{Month}";
+    public override string ToString() => $"{Year}-{Month:D2}";
 
     public int CompareTo(YearMonth? other)
     {

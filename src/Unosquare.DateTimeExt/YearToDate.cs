@@ -14,6 +14,8 @@ public sealed class YearToDate : YearAbstract
     {
     }
 
+    public static YearToDate Current => new();
+
     public YearEntity YearEntity => new(Year);
 
     public override string ToString() => $"YTD: {base.ToString()}";

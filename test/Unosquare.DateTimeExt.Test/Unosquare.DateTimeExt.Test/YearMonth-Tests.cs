@@ -38,6 +38,14 @@ public class YearMonthTests
     }
 
     [Fact]
+    public void WithMonth_Previous()
+    {
+        var yearMonth = new YearMonth(month: 2, year: 2022);
+
+        Assert.Equal(new(2022, 1, 1), yearMonth.Previous.StartDate);
+    }
+
+    [Fact]
     public void WithMonth_ToMonth()
     {
         var yearMonth = new YearMonth(month: 1, year: 2022);
@@ -58,13 +66,13 @@ public class YearMonthTests
     [Fact]
     public void WithYearMonth_ReturnsFormattedString()
     {
-        Assert.Equal("2022-1", new YearMonth(year: 2022, month: 1).ToString());
+        Assert.Equal("2022-01", new YearMonth(year: 2022, month: 1).ToString());
     }
 
     [Fact]
     public void WithYearMonth_TryParse()
     {
-        var result = YearMonth.TryParse("2022-1", out var dateRange);
+        var result = YearMonth.TryParse("2022-01", out var dateRange);
         Assert.True(result);
         Assert.Equal(new(year: 2022, month: 1), dateRange);
     }
@@ -78,5 +86,17 @@ public class YearMonthTests
         Assert.Equal(-1, yearQuarterOne.CompareTo(yearQuarterTwo));
         Assert.Equal(0, yearQuarterOne.CompareTo(yearQuarterOne));
         Assert.Equal(1, yearQuarterTwo.CompareTo(yearQuarterOne));
+    }
+
+    [Fact]
+    public void WithYearMonthDay_ReturnsDateTime()
+    {
+        Assert.Equal(new(2022, 1, 10), new YearMonth(year: 2022, month: 1).Day(10));
+    }
+
+    [Fact]
+    public void WithYearMontCurrent_IsCurrentTrue()
+    {
+        Assert.True(YearMonth.Current.IsCurrent);
     }
 }

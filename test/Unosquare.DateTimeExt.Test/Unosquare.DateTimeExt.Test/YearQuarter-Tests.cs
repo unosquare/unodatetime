@@ -34,4 +34,10 @@ public class YearQuarterTests
         Assert.Equal(0, yearQuarterOne.CompareTo(yearQuarterOne));
         Assert.Equal(1, yearQuarterTwo.CompareTo(yearQuarterOne));
     }
+
+    [Fact]
+    public void WithYearQuarterCurrent_IsCurrentTrue()
+    {
+        Assert.True(YearQuarter.Current.IsCurrent);
+    }
 }

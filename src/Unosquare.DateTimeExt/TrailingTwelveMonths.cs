@@ -9,22 +9,17 @@ public sealed class TrailingTwelveMonths : DateRange, IHasYearMonths
     public TrailingTwelveMonths(DateTime? endDate = null, int monthsAgo = Twelve)
         : base((endDate ?? DateTime.UtcNow).AddMonths(-monthsAgo).Date, (endDate ?? DateTime.UtcNow).Date)
     {
-        var months = new List<YearMonth>();
-        var current = new YearMonth(StartDate);
-
-        for (var i = 0; i < monthsAgo; i++)
-        {
-            months.Add(current);
-            current = current.Next;
-        }
-
-        YearMonths = months;
+        YearMonths = Enumerable.Range(0, monthsAgo)
+            .Select(i => new YearMonth(StartDate).AddMonths(i))
+            .ToList();
     }
 
     public TrailingTwelveMonths(IYearMonth yearMonth, int monthsAgo = Twelve)
         : this(new DateTime(yearMonth.Year, yearMonth.Month, 1).GetLastDayOfMonth(), monthsAgo)
     {
     }
+
+    public static TrailingTwelveMonths Current => new();
 
     public IReadOnlyCollection<YearMonth> YearMonths { get; }
 

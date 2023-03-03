@@ -3,27 +3,26 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
-public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>, IHasBusinessDays
+public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>, IHasBusinessDays
 {
     public DateRange()
         : this(DateTime.UtcNow)
     {
     }
+    
+    public DateRange(IReadOnlyDateRange range)
+        : this(range.StartDate, range.EndDate)
+    {
+    }
 
     public DateRange(DateTime startDate, DateTime? endDate = null)
+    : base(startDate, endDate)
     {
-        StartDate = startDate;
-        EndDate = endDate ?? startDate;
-
         if (EndDate < StartDate)
             throw new ArgumentOutOfRangeException(nameof(endDate), "End Date should be after Start Date");
 
     }
-
-    public DateTime StartDate { get; }
-
-    public DateTime EndDate { get; }
-
+    
     public DateTime MidnightEndDate => EndDate.Date.AddDays(1).AddSeconds(-1);
 
     public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
@@ -32,30 +31,16 @@ public class DateRange : IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, ICompa
 
     public int DaysInBetween => (EndDate - StartDate).Days;
 
-    public void Deconstruct(out DateTime startDate, out DateTime endDate)
-    {
-        startDate = StartDate;
-        endDate = EndDate;
-    }
-
     public override string ToString() => $"{StartDate.ToShortDateString()}-{EndDate.ToShortDateString()}";
-
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     public override int GetHashCode() => StartDate.GetHashCode() + EndDate.GetHashCode();
 
-    public IEnumerator<DateTime> GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public override IEnumerator<DateTime> GetEnumerator()
     {
         for (var i = 0; i <= DaysInBetween; i++)
             yield return StartDate.AddDays(i);
-    }
-
-    public IEnumerable<TK> Select<TK>(Func<DateTime, TK> selector)
-    {
-        using var enumerator = GetEnumerator();
-
-        while (enumerator.MoveNext())
-            yield return selector(enumerator.Current);
     }
 
     public override bool Equals(object? obj) =>

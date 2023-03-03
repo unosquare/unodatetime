@@ -37,6 +37,8 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
     {
     }
 
+    public static YearWeek Current => new();
+
     public int Week { get; }
     public int Year => StartDate.Year;
 

@@ -39,6 +39,8 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
     {
     }
 
+    public static YearQuarter Current => new();
+
     public int Quarter { get; }
 
     public int Year => StartDate.Year;
