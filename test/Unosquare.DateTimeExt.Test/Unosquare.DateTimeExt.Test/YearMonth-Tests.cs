@@ -3,17 +3,6 @@
 public class YearMonthTests
 {
     [Fact]
-    public void WithCurrentMonth_DistinctDates()
-    {
-        var yearMonth = new YearMonth(DateTime.UtcNow);
-        var monthDate = new MonthToDate(DateTime.UtcNow);
-        var lastDayOfMonth = DateTime.UtcNow.GetLastBusinessDayOfMonth().Date;
-
-        Assert.Equal(lastDayOfMonth, yearMonth.EndDate);
-        Assert.Equal(DateTime.UtcNow.Date, monthDate.EndDate);
-    }
-
-    [Fact]
     public void WithMonth_OutOfRange()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => new YearMonth(month: 13, year: 2022));

@@ -59,4 +59,50 @@ public class DateRangeTests
 
         Assert.Equal(2, dateRangeSelected.Count());
     }
+
+    [Fact]
+    public void WithDateRanges_SelectWithIndex()
+    {
+        var dateRangeSelected = new DateRange(new(2022, 1, 1), new DateTime(2022, 1, 2)).Select((x, i) => i);
+
+        Assert.Equal(2, dateRangeSelected.Count());
+    }
+
+    [Fact]
+    public void WithDateRanges_EqualOperator()
+    {
+        var dateRange1 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange2 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange3 = new DateRange(new(2022, 10, 2), new DateTime(2022, 10, 31));
+
+        Assert.True(dateRange1 == dateRange2);
+        Assert.False(dateRange1 == dateRange3);
+    }
+
+    [Fact]
+    public void WithDateRanges_NotEqualOperator()
+    {
+        var dateRange1 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange2 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange3 = new DateRange(new(2022, 10, 2), new DateTime(2022, 10, 31));
+
+        Assert.False(dateRange1 != dateRange2);
+        Assert.True(dateRange1 != dateRange3);
+    }
+
+    [Fact]
+    public void WithDateRange_FirstBusinessDay()
+    {
+        var dateRange = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+
+        Assert.Equal(new(2022, 10, 3), dateRange.FirstBusinessDay);
+    }
+
+    [Fact]
+    public void WithDateRange_LastBusinessDay()
+    {
+        var dateRange = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+
+        Assert.Equal(new(2022, 10, 31), dateRange.LastBusinessDay);
+    }
 }

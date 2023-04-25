@@ -22,9 +22,9 @@ public abstract class YearAbstract : DateRange, IHasReadOnlyYear, IHasYearWeeks,
 
     public int Year => StartDate.Year;
 
-    public YearQuarter Next => new(StartDate.AddYears(1));
+    public YearEntity Next => new(StartDate.AddYears(1));
 
-    public YearQuarter Previous => new(StartDate.AddYears(-1));
+    public YearEntity Previous => new(StartDate.AddYears(-1));
 
     public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
 

@@ -40,4 +40,28 @@ public class YearQuarterTests
     {
         Assert.True(YearQuarter.Current.IsCurrent);
     }
+
+    [Fact]
+    public void WithYearQuarterCurrent_IsCurrentFalse()
+    {
+        Assert.False(new YearQuarter(year: 2022, quarter: 1).IsCurrent);
+    }
+
+    [Fact]
+    public void WithYearQuarterAddQuarters_AddsQuarters()
+    {
+        Assert.Equal(new YearQuarter(year: 2022, quarter: 2), new YearQuarter(year: 2022, quarter: 1).AddQuarters(1));
+    }
+
+    [Fact]
+    public void WithYearQuarterAddQuarters_SubtractsQuarters()
+    {
+        Assert.Equal(new YearQuarter(year: 2022, quarter: 1), new YearQuarter(year: 2022, quarter: 2).AddQuarters(-1));
+    }
+
+    [Fact]
+    public void WithYearQuarterYearEntity_ReturnsYearEntity()
+    {
+        Assert.Equal(new YearEntity(year: 2022), new YearQuarter(year: 2022, quarter: 1).YearEntity);
+    }
 }

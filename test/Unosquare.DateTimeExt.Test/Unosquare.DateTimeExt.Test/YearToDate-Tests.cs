@@ -31,4 +31,16 @@ public class YearToDateTests
     {
         Assert.Equal(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }, new YearToDate(2020).Months);
     }
+
+    [Fact]
+    public void WithYearToDateOnPast_ReturnsYearEntity()
+    {
+        Assert.Equal(new YearEntity(2020), new YearToDate(2020).YearEntity);
+    }
+
+    [Fact]
+    public void WithYearToDateOnPast_ReturnsFormattedString()
+    {
+        Assert.Equal("YTD: 1/1/2020-12/31/2020", new YearToDate(2020).ToString());
+    }
 }
