@@ -9,7 +9,7 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
         : this(DateTime.UtcNow)
     {
     }
-    
+
     public DateRange(IReadOnlyDateRange range)
         : this(range.StartDate, range.EndDate)
     {
@@ -20,9 +20,8 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
     {
         if (EndDate < StartDate)
             throw new ArgumentOutOfRangeException(nameof(endDate), "End Date should be after Start Date");
-
     }
-    
+
     public DateTime MidnightEndDate => EndDate.Date.AddDays(1).AddSeconds(-1);
 
     public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
