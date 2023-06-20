@@ -77,6 +77,8 @@ public sealed class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<
         return other is null ? 1 : base.CompareTo(other);
     }
 
+    public static int MonthInQuarter(int month) => ((month - 1) % 3) + 1;
+
     private static DateTime GetStartDate(int? quarter = null, int? year = null) => new(
         year ?? DateTime.UtcNow.Year,
         ((quarter ?? DateTime.UtcNow.GetQuarter()) - 1) * QuarterMonths + 1,
