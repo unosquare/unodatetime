@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-		<Version>1.1.9</Version>
+		<Version>1.1.10</Version>
 	</PropertyGroup>
 
 </Project>
