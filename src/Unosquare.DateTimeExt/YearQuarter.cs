@@ -1,4 +1,5 @@
-﻿using Unosquare.DateTimeExt.Interfaces;
+﻿using System;
+using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
@@ -60,6 +61,8 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
     public YearQuarter AddQuarters(int count) => new(StartDate.AddMonths(QuarterMonths * count));
 
     public YearQuarter ToQuarter(int? quarter) => new(quarter, Year);
+
+    public new YearQuarterRecord ToRecord() => new() { Year = Year, Quarter = Quarter };
 
     public void Deconstruct(out int year, out int quarter)
     {

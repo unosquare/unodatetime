@@ -49,7 +49,7 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
 
     public YearWeek Previous => new(StartDate.AddDays(-WeekDays));
 
-    public bool IsCurrent => Week == DateTime.UtcNow.GetWeekOfYear() && IsCurrentYear;
+    public bool IsCurrent => IsCurrentYear && Week == DateTime.UtcNow.GetWeekOfYear();
 
     public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
 
@@ -59,6 +59,8 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
     public YearWeek AddWeeks(int count) => new(StartDate.AddDays(WeekDays * count));
 
     public YearWeek ToWeek(int? week) => new(week, Year);
+
+    public new YearWeekRecord ToRecord() => new() { Year = Year, Week = Week };
 
     public void Deconstruct(out int year, out int week)
     {

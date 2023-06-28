@@ -85,6 +85,8 @@ public class YearMonth : DateRange, IYearMonthDateRange, IComparable<YearMonth>
 
     public DateOnly DayOnly(int day) => new(Year, Month, day);
 
+    public new YearMonthRecord ToRecord() => new() { Year = Year, Month = Month };
+
     public void Deconstruct(out int year, out int month)
     {
         year = Year;
