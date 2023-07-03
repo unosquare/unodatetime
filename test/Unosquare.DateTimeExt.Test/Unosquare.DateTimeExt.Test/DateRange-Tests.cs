@@ -106,21 +106,26 @@ public class DateRangeTests
         Assert.Equal(new(2022, 10, 31), dateRange.LastBusinessDay);
     }
 
-    [Fact]
-    public void WithDateTimes_Contains()
+    [Theory]
+    [InlineData(10, 1)]
+    [InlineData(10, 15)]
+    [InlineData(10, 31)]
+    public void WithDateTime_Contains_TrueCases(params int[] values)
     {
         var dateRange = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var date = new DateTime(2022, values[0], values[1]);
 
-        var date1 = new DateTime(2022, 9, 30);
-        var date2 = new DateTime(2022, 10, 1);
-        var date3 = new DateTime(2022, 10, 15);
-        var date4 = new DateTime(2022, 10, 31);
-        var date5 = new DateTime(2022, 11, 1);
+        Assert.True(dateRange.Contains(date));
+    }
 
-        Assert.False(dateRange.Contains(date1));
-        Assert.True(dateRange.Contains(date2));
-        Assert.True(dateRange.Contains(date3));
-        Assert.True(dateRange.Contains(date4));
-        Assert.False(dateRange.Contains(date5));
+    [Theory]
+    [InlineData(9, 30)]
+    [InlineData(11, 1)]
+    public void WithDateTime_Contains_FalseCases(params int[] values)
+    {
+        var dateRange = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var date = new DateTime(2022, values[0], values[1]);
+
+        Assert.False(dateRange.Contains(date));
     }
 }
