@@ -30,7 +30,7 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
 
     public int DaysInBetween => (EndDate - StartDate).Days;
 
-    public bool Contains(DateTime date) => StartDate >= date && EndDate <= date;
+    public bool Contains(DateTime date) => StartDate <= date && EndDate >= date;
 
     public DateRangeRecord ToRecord() => new() { StartDate = StartDate, EndDate = EndDate };
 
