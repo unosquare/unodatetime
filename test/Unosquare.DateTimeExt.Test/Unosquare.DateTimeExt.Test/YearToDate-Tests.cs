@@ -35,12 +35,12 @@ public class YearToDateTests
     [Fact]
     public void WithYearToDateOnPast_ReturnsYearEntity()
     {
-        Assert.Equal(new YearEntity(2020), new YearToDate(2020).YearEntity);
+        Assert.Equal(new(2020), new YearToDate(2020).YearEntity);
     }
 
     [Fact]
     public void WithYearToDateOnPast_ReturnsFormattedString()
     {
-        Assert.Equal("YTD: 1/1/2020-12/31/2020", new YearToDate(2020).ToString());
+        Assert.Equal("YTD: 1/1/2020 - 12/31/2020", new YearToDate(2020).ToString());
     }
 }

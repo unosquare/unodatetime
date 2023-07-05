@@ -34,7 +34,7 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
 
     public DateRangeRecord ToRecord() => new() { StartDate = StartDate, EndDate = EndDate };
 
-    public override string ToString() => $"{StartDate.ToShortDateString()}-{EndDate.ToShortDateString()}";
+    public override string ToString() => $"{StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
 
     public override int GetHashCode() => StartDate.GetHashCode() + EndDate.GetHashCode();
 
@@ -69,4 +69,27 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
     public static bool operator <(DateRange left, DateRange right) => left.EndDate < right.EndDate;
 
     public static bool operator !=(DateRange left, DateRange right) => !(left == right);
+
+    public static bool TryParse(string? value, out DateRange? result)
+    {
+        result = null;
+
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        var parts = value.Split(" - ");
+
+        if (parts.Length != 2)
+            return false;
+
+        if (!DateTime.TryParse(parts[0], out var startDate))
+            return false;
+
+        if (!DateTime.TryParse(parts[1], out var endDate))
+            return false;
+
+        result = new(startDate, endDate);
+
+        return true;
+    }
 }

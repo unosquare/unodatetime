@@ -17,6 +17,6 @@ public class TrailingTwelveMonthsTests
     [Fact]
     public void WithTrailingTwelveOnFirstDayYear_ReturnsFormattedString()
     {
-        Assert.Equal("TTM: 1/1/2021-1/1/2022", new TrailingTwelveMonths(new DateTime(2022, 1, 1)).ToString());
+        Assert.Equal("TTM: 1/1/2021 - 1/1/2022", new TrailingTwelveMonths(new DateTime(2022, 1, 1)).ToString());
     }
 }

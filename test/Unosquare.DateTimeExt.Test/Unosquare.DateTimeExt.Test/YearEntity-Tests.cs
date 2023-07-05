@@ -17,7 +17,7 @@ public class YearEntityTests
     {
         var result = new YearEntity(2023);
 
-        Assert.Equal("1/1/2023-12/31/2023", result.ToString());
+        Assert.Equal("1/1/2023 - 12/31/2023", result.ToString());
     }
 
     [Fact]

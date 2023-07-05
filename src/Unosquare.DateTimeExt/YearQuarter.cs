@@ -1,5 +1,4 @@
-﻿using System;
-using Unosquare.DateTimeExt.Interfaces;
+﻿using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 

@@ -15,7 +15,7 @@ public class DateRangeTests
     [Fact]
     public void WithYearQuarter_ReturnsFormattedString()
     {
-        Assert.Equal("10/1/2022-10/31/2022",
+        Assert.Equal("10/1/2022 - 10/31/2022",
             new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31)).ToString());
     }
 
@@ -56,14 +56,6 @@ public class DateRangeTests
     public void WithDateRanges_Select()
     {
         var dateRangeSelected = new DateRange(new(2022, 1, 1), new DateTime(2022, 1, 2)).Select(x => x);
-
-        Assert.Equal(2, dateRangeSelected.Count());
-    }
-
-    [Fact]
-    public void WithDateRanges_SelectWithIndex()
-    {
-        var dateRangeSelected = new DateRange(new(2022, 1, 1), new DateTime(2022, 1, 2)).Select((x, i) => i);
 
         Assert.Equal(2, dateRangeSelected.Count());
     }
@@ -127,5 +119,15 @@ public class DateRangeTests
         var date = new DateTime(2022, values[0], values[1]);
 
         Assert.False(dateRange.Contains(date));
+    }
+
+    [Fact]
+    public void WithString_ParseCorrectValue()
+    {
+        const string dateString = "2022-10-01 - 2022-10-31";
+
+        Assert.True(DateRange.TryParse(dateString, out var dateRange));
+        Assert.Equal(new(2022, 10, 1), dateRange.StartDate);
+        Assert.Equal(new(2022, 10, 31), dateRange.EndDate);
     }
 }

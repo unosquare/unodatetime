@@ -50,18 +50,18 @@ public class YearQuarterTests
     [Fact]
     public void WithYearQuarterAddQuarters_AddsQuarters()
     {
-        Assert.Equal(new YearQuarter(year: 2022, quarter: 2), new YearQuarter(year: 2022, quarter: 1).AddQuarters(1));
+        Assert.Equal(new(year: 2022, quarter: 2), new YearQuarter(year: 2022, quarter: 1).AddQuarters(1));
     }
 
     [Fact]
     public void WithYearQuarterAddQuarters_SubtractsQuarters()
     {
-        Assert.Equal(new YearQuarter(year: 2022, quarter: 1), new YearQuarter(year: 2022, quarter: 2).AddQuarters(-1));
+        Assert.Equal(new(year: 2022, quarter: 1), new YearQuarter(year: 2022, quarter: 2).AddQuarters(-1));
     }
 
     [Fact]
     public void WithYearQuarterYearEntity_ReturnsYearEntity()
     {
-        Assert.Equal(new YearEntity(year: 2022), new YearQuarter(year: 2022, quarter: 1).YearEntity);
+        Assert.Equal(new(year: 2022), new YearQuarter(year: 2022, quarter: 1).YearEntity);
     }
 }
