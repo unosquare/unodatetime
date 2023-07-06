@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public sealed class YearToDate : YearAbstract
+public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearWeeks, IHasYearMonths, IHasYearQuarters
 {
     public YearToDate(IHasReadOnlyYear readOnlyYear)
         : this(readOnlyYear.Year)
@@ -12,11 +12,25 @@ public sealed class YearToDate : YearAbstract
     public YearToDate(int? year = null)
         : base(CalculateStartDate(year).Date, CalculateEndDate(year).Date)
     {
+        YearMonths = Months.Select(x => new YearMonth(x, Year)).ToArray();
+        YearQuarters = Quarters.Select(x => new YearQuarter(x, Year)).ToArray();
     }
 
     public static YearToDate Current => new();
 
     public YearEntity YearEntity => new(Year);
+
+    public int Month => StartDate.Month;
+
+    public MonthToDate MonthToDate => new(StartDate);
+
+    public YearMonth YearMonth => new(StartDate);
+
+    public IReadOnlyCollection<YearWeek> YearWeeks => throw new NotImplementedException();
+
+    public IReadOnlyCollection<YearMonth> YearMonths { get; }
+
+    public IReadOnlyCollection<YearQuarter> YearQuarters { get; }
 
     public override string ToString() => $"YTD: {base.ToString()}";
 

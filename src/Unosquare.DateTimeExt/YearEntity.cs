@@ -13,4 +13,8 @@ public sealed class YearEntity : YearAbstract
     }
 
     public static YearEntity Current => new();
+
+    public YearEntity Next => new(StartDate.AddYears(1));
+
+    public YearEntity Previous => new(StartDate.AddYears(-1));
 }
