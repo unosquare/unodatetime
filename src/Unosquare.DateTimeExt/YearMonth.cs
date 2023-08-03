@@ -35,7 +35,7 @@ public class YearMonth : YearAbstract, IYearMonthDateRange, IComparable<YearMont
     }
 
     public YearMonth(IYearWeek yearWeek)
-        : this(yearWeek.Year.GetMonthFromWeekYear(yearWeek.Week))
+        : this(yearWeek.Year.GetMonthFromWeekYear(yearWeek.Week), yearWeek.Year)
     {
     }
 
