@@ -77,4 +77,20 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
 
         return other is null ? 1 : base.CompareTo(other);
     }
+
+    public static bool TryParse(string? value, out YearWeek result)
+    {
+        result = default!;
+
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        var parts = value.Split('-', 'W');
+
+        if (parts.Length != 3 || !int.TryParse(parts[0], out var year) || !int.TryParse(parts[2], out var week))
+            return false;
+
+        result = new(week, year);
+        return true;
+    }
 }

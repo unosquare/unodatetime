@@ -81,6 +81,22 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
 
     public static int MonthInQuarter(int month) => ((month - 1) % QuarterMonths) + 1;
 
+    public static bool TryParse(string? value, out YearQuarter result)
+    {
+        result = default!;
+
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        var parts = value.Split('-', 'Q');
+
+        if (parts.Length != 3 || !int.TryParse(parts[0], out var year) || !int.TryParse(parts[2], out var quarter))
+            return false;
+
+        result = new(quarter, year);
+        return true;
+    }
+
     private static DateTime GetStartDate(int? quarter = null, int? year = null) => new(
         year ?? DateTime.UtcNow.Year,
         ((quarter ?? DateTime.UtcNow.GetQuarter()) - 1) * QuarterMonths + 1,

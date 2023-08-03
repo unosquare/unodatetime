@@ -70,9 +70,9 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
 
     public static bool operator !=(DateRange left, DateRange right) => !(left == right);
 
-    public static bool TryParse(string? value, out DateRange? result)
+    public static bool TryParse(string? value, out DateRange result)
     {
-        result = null;
+        result = default!;
 
         if (string.IsNullOrWhiteSpace(value))
             return false;

@@ -79,4 +79,33 @@ public class YearWeekTests
         Assert.Equal(1, week);
         Assert.Equal(2022, year);
     }
+
+    [Fact]
+    public void TryParse_Valid_WeekYearString_ReturnsTrue()
+    {
+        // Arrange
+        const string input = "2022-W01";
+        YearWeek expected = new(1, 2022);
+
+        // Act
+        bool result = YearWeek.TryParse(input, out var actual);
+
+        // Assert
+        Assert.True(result);
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void TryParse_Invalid_WeekYearString_ReturnsFalse()
+    {
+        // Arrange
+        const string input = "not a valid input string";
+
+        // Act
+        bool result = YearWeek.TryParse(input, out var actual);
+
+        // Assert
+        Assert.False(result);
+        Assert.Null(actual);
+    }
 }

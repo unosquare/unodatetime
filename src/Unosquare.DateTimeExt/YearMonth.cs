@@ -34,6 +34,11 @@ public class YearMonth : YearAbstract, IYearMonthDateRange, IComparable<YearMont
     {
     }
 
+    public YearMonth(IYearWeek yearWeek)
+        : this(yearWeek.Year.GetMonthFromWeekYear(yearWeek.Week))
+    {
+    }
+
     public static YearMonth Current => new();
 
     public int Month => StartDate.Month;

@@ -64,4 +64,21 @@ public class YearQuarterTests
     {
         Assert.Equal(new(year: 2022), new YearQuarter(year: 2022, quarter: 1).YearEntity);
     }
+
+    [Fact]
+    public void WithYearQuarter_TryParse_ReturnsValidDate()
+    {
+        var result = YearQuarter.TryParse("2021-Q4", out YearQuarter quarter);
+        var expectedQuarter = new YearQuarter(4, 2021);
+
+        Assert.True(result);
+        Assert.Equal(expectedQuarter, quarter);
+    }
+
+    [Fact]
+    public void WithYearQuarter_TryParse_ReturnsInvalidDate()
+    {
+        bool result = YearQuarter.TryParse("YearQuarter", out _);
+        Assert.False(result);
+    }
 }
