@@ -83,6 +83,41 @@ public class DateRangeTests
     }
 
     [Fact]
+    public void WithDateRange_GreatThanOperator()
+    {
+        var dateRange1 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange2 = new DateRange(new(2022, 10, 2), new DateTime(2022, 10, 31));
+
+        Assert.True(dateRange2 > dateRange1);
+    }
+
+    [Fact]
+    public void WithDateRange_LessThanOperator()
+    {
+        var dateRange1 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange2 = new DateRange(new(2022, 10, 2), new DateTime(2022, 10, 31));
+
+        Assert.True(dateRange1 < dateRange2);
+    }
+
+    [Fact]
+    public void WithDateRange_GreatThanOrEqualOperator()
+    {
+        var dateRange1 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange2 = new DateRange(new(2022, 10, 2), new DateTime(2022, 10, 31));
+
+        Assert.True(dateRange2 >= dateRange1);
+    }
+
+    [Fact]
+    public void WithDateRange_LessThanOrEqualOperator()
+    {
+        var dateRange1 = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
+        var dateRange2 = new DateRange(new(2022, 10, 2), new DateTime(2022, 10, 31));
+
+        Assert.True(dateRange1 <= dateRange2);
+    }
+    [Fact]
     public void WithDateRange_FirstBusinessDay()
     {
         var dateRange = new DateRange(new(2022, 10, 1), new DateTime(2022, 10, 31));
@@ -129,5 +164,29 @@ public class DateRangeTests
         Assert.True(DateRange.TryParse(dateString, out var dateRange));
         Assert.Equal(new(2022, 10, 1), dateRange.StartDate);
         Assert.Equal(new(2022, 10, 31), dateRange.EndDate);
+    }
+
+    [Fact]
+    public void WithString_ParseIncorrectValue()
+    {
+        const string dateString = "2022-10-01 - 2022-10-32";
+
+        Assert.False(DateRange.TryParse(dateString, out _));
+    }
+
+    [Fact]
+    public void WithString_ParseIncorrectValue2()
+    {
+        const string dateString = "2022-10-32 - 2022-10-31";
+
+        Assert.False(DateRange.TryParse(dateString, out _));
+    }
+
+    [Fact]
+    public void WithString_ParseIncorrectEmpty()
+    {
+        const string dateString = "";
+
+        Assert.False(DateRange.TryParse(dateString, out _));
     }
 }

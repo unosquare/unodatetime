@@ -72,7 +72,11 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
 
     public static bool operator >(DateRange left, DateRange right) => left.StartDate > right.StartDate;
 
-    public static bool operator <(DateRange left, DateRange right) => left.EndDate < right.EndDate;
+    public static bool operator <(DateRange left, DateRange right) => left.StartDate < right.StartDate;
+
+    public static bool operator >=(DateRange left, DateRange right) => left.StartDate >= right.StartDate;
+
+    public static bool operator <=(DateRange left, DateRange right) => left.StartDate <= right.StartDate;
 
     public static bool operator !=(DateRange left, DateRange right) => !(left == right);
 

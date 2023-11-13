@@ -75,6 +75,13 @@ public class YearMonthTests
     }
 
     [Fact]
+    public void WithYearMonth_TryParseInvalidNull()
+    {
+        var result = YearMonth.TryParse(null, out var _);
+        Assert.False(result);
+    }
+
+    [Fact]
     public void WithTwoQuarters_ComparesThem()
     {
         var yearQuarterOne = new YearMonth(year: 2022, month: 1);
@@ -107,5 +114,35 @@ public class YearMonthTests
     public void WithYearMonthCurrent_ReturnsCurrentMonth()
     {
         Assert.Equal(DateTime.UtcNow.Month, YearMonth.Current.Month);
+    }
+
+    [Fact]
+    public void YearMonth_DateOnly()
+    {
+        var yearMonth = new YearMonth(year: 2022, month: 1);
+        var dateOnly = yearMonth.DayOnly(1);
+
+        Assert.Equal(yearMonth.Year, dateOnly.Year);
+        Assert.Equal(yearMonth.StartDate.Month, dateOnly.Month);
+        Assert.Equal(1, dateOnly.Day);
+    }
+
+    [Fact]
+    public void YearMonth_ToRecord()
+    {
+        var yearMonth = new YearMonth(year: 2022, month: 1);
+        var record = yearMonth.ToRecord();
+
+        Assert.Equal(yearMonth.Year, record.Year);
+        Assert.Equal(yearMonth.StartDate.Month, record.Month);
+    }
+
+    [Fact]
+    public void YearMonth_Deconstruct()
+    {
+        var (year, month) = new YearMonth(year: 2022, month: 1);
+
+        Assert.Equal(2022, year);
+        Assert.Equal(1, month);
     }
 }

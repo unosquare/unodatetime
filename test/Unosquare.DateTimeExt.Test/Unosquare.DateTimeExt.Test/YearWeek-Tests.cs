@@ -138,4 +138,37 @@ public class YearWeekTests
         Assert.Equal(yearWeek.StartDate.Month, yearWeekBoW.StartDate.Month);
         Assert.Equal(1, yearWeekBoW.StartDate.Day);
     }
+
+    [Fact]
+    public void YearWeek_ToRecord()
+    {
+        var yearWeek = new YearWeek(1, 2022);
+        var record = yearWeek.ToRecord();
+
+        Assert.Equal(yearWeek.Year, record.Year);
+        Assert.Equal(yearWeek.StartDate.Month, record.Week);
+    }
+
+    [Fact]
+    public void YearWeek_Equals()
+    {
+        var yearWeek1 = new YearWeek(1, 2022);
+        var yearWeek2 = new YearWeek(1, 2022);
+        var yearWeek3 = new YearWeek(2, 2022);
+
+        Assert.True(yearWeek1.Equals(yearWeek2));
+        Assert.False(yearWeek1.Equals(yearWeek3));
+    }
+
+    [Fact]
+    public void YearWeek_CompareTo()
+    {
+        var yearWeek1 = new YearWeek(1, 2022);
+        var yearWeek2 = new YearWeek(1, 2022);
+        var yearWeek3 = new YearWeek(2, 2022);
+
+        Assert.Equal(0, yearWeek1.CompareTo(yearWeek2));
+        Assert.Equal(-1, yearWeek1.CompareTo(yearWeek3));
+        Assert.Equal(1, yearWeek3.CompareTo(yearWeek1));
+    }
 }
