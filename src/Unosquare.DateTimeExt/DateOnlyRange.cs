@@ -3,14 +3,27 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
+/// <summary>
+/// Represents a range of dates with only the date component (no time component).
+/// </summary>
 public sealed class DateOnlyRange : RangeBase<DateOnly>, IReadOnlyDateOnlyRange, IComparable<DateOnlyRange>,
     IEnumerable<DateOnly>, IHasBusinessDaysDateOnly
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateOnlyRange"/> class.
+    /// The range is initialized to the current UTC date.
+    /// </summary>
     public DateOnlyRange()
         : this(DateOnly.FromDateTime(DateTime.UtcNow))
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateOnlyRange"/> class.
+    /// </summary>
+    /// <param name="startDate">The start date.</param>
+    /// <param name="endDate">The end date (optional).</param>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when the end date is before the start date.</exception>
     public DateOnlyRange(DateOnly startDate, DateOnly? endDate = null)
         : base(startDate, endDate)
     {
@@ -61,4 +74,8 @@ public sealed class DateOnlyRange : RangeBase<DateOnly>, IReadOnlyDateOnlyRange,
     public static bool operator <(DateOnlyRange left, DateOnlyRange right) => left.EndDate < right.EndDate;
 
     public static bool operator !=(DateOnlyRange left, DateOnlyRange right) => !(left == right);
+
+    public static bool operator <=(DateOnlyRange left, DateOnlyRange right) => left.CompareTo(right) <= 0;
+
+    public static bool operator >=(DateOnlyRange left, DateOnlyRange right) => left.CompareTo(right) >= 0;
 }

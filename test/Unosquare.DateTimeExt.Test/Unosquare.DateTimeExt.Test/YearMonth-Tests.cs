@@ -67,6 +67,14 @@ public class YearMonthTests
     }
 
     [Fact]
+    public void WithYearMonth_TryParseInvalid()
+    {
+        var result = YearMonth.TryParse("2022-13", out var dateRange);
+        Assert.False(result);
+        Assert.Equal(default, dateRange);
+    }
+
+    [Fact]
     public void WithTwoQuarters_ComparesThem()
     {
         var yearQuarterOne = new YearMonth(year: 2022, month: 1);
@@ -87,5 +95,17 @@ public class YearMonthTests
     public void WithYearMontCurrent_IsCurrentTrue()
     {
         Assert.True(YearMonth.Current.IsCurrent);
+    }
+
+    [Fact]
+    public void WithYearMonthCurrent_ReturnsCurrentYear()
+    {
+        Assert.Equal(DateTime.UtcNow.Year, YearMonth.Current.Year);
+    }
+
+    [Fact]
+    public void WithYearMonthCurrent_ReturnsCurrentMonth()
+    {
+        Assert.Equal(DateTime.UtcNow.Month, YearMonth.Current.Month);
     }
 }

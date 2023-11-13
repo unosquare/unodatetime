@@ -61,7 +61,7 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
 
     public YearQuarter ToQuarter(int? quarter) => new(quarter, Year);
 
-    public new YearQuarterRecord ToRecord() => new() { Year = Year, Quarter = Quarter };
+    public new YearQuarterRecord ToRecord() => new(Year, Quarter);
 
     public void Deconstruct(out int year, out int quarter)
     {
@@ -93,8 +93,16 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
         if (parts.Length != 3 || !int.TryParse(parts[0], out var year) || !int.TryParse(parts[2], out var quarter))
             return false;
 
-        result = new(quarter, year);
-        return true;
+        try
+        {
+            result = new(quarter, year);
+            return true;
+        }
+        catch
+        {
+            // Invalid date
+            return false;
+        }
     }
 
     private static DateTime GetStartDate(int? quarter = null, int? year = null) => new(

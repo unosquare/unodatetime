@@ -78,6 +78,15 @@ public class YearQuarterTests
     [Fact]
     public void WithYearQuarter_TryParse_ReturnsInvalidDate()
     {
+        bool result = YearQuarter.TryParse("2021-Q5", out var quarter);
+        Assert.False(result);
+        Assert.Equal(default, quarter);
+
+    }
+
+    [Fact]
+    public void WithYearQuarter_TryParse_ReturnsInvalidString()
+    {
         bool result = YearQuarter.TryParse("YearQuarter", out _);
         Assert.False(result);
     }

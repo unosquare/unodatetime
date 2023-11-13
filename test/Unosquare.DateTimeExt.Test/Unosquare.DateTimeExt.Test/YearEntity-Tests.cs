@@ -35,4 +35,12 @@ public class YearEntityTests
 
         Assert.Equal(2022, result.Previous.Year);
     }
+
+    [Fact]
+    public void WithYear_ReturnsCurrentYear()
+    {
+        var result = YearEntity.Current;
+
+        Assert.Equal(DateTime.Now.Year, result.Year);
+    }
 }

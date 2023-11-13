@@ -68,22 +68,30 @@ public class YearMonth : YearAbstract, IYearMonthDateRange, IComparable<YearMont
         if (values.Length != 2)
             return false;
 
-        range = new(
-            int.TryParse(values[1], out var month)
-                ? month
-                : throw new ArgumentOutOfRangeException(nameof(value), "Month"),
-            int.TryParse(values[0], out var year)
-                ? year
-                : throw new ArgumentOutOfRangeException(nameof(value), "Year"));
+        try
+        {
+            range = new(
+                int.TryParse(values[1], out var month)
+                    ? month
+                    : throw new ArgumentOutOfRangeException(nameof(value), "Month"),
+                int.TryParse(values[0], out var year)
+                    ? year
+                    : throw new ArgumentOutOfRangeException(nameof(value), "Year"));
 
-        return true;
+            return true;
+        }
+        catch
+        {
+            // Invalid date entered
+            return false;
+        }
     }
 
     public DateTime Day(int day) => new(Year, Month, day);
 
     public DateOnly DayOnly(int day) => new(Year, Month, day);
 
-    public new YearMonthRecord ToRecord() => new() { Year = Year, Month = Month };
+    public new YearMonthRecord ToRecord() => new(Year, Month);
 
     public void Deconstruct(out int year, out int month)
     {

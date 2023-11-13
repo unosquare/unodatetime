@@ -3,8 +3,14 @@ using Unosquare.DateTimeExt.Interfaces;
 
 namespace Unosquare.DateTimeExt;
 
+/// <summary>
+/// Represents a range of dates with a start and end date.
+/// </summary>
 public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>, IHasBusinessDays
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateRange"/> class with the current UTC date and time.
+    /// </summary>
     public DateRange()
         : this(DateTime.UtcNow)
     {
@@ -32,7 +38,7 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
 
     public bool Contains(DateTime date) => StartDate <= date && EndDate >= date;
 
-    public DateRangeRecord ToRecord() => new() { StartDate = StartDate, EndDate = EndDate };
+    public DateRangeRecord ToRecord() => new(StartDate, EndDate);
 
     public override string ToString() => $"{StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
 

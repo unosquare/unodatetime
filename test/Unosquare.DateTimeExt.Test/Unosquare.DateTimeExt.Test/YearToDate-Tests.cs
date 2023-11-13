@@ -3,6 +3,13 @@
 public class YearToDateTests
 {
     [Fact]
+    public void YearToDateFromYear()
+    {
+        var ytd = new YearToDate(2021);
+        Assert.Equal(2021, ytd.Year);
+    }
+
+    [Fact]
     public void WithYearToDateOnPast_ReturnsDecember()
     {
         Assert.Equal(new(2020, 12, 31), new YearToDate(2020).EndDate);
@@ -39,8 +46,21 @@ public class YearToDateTests
     }
 
     [Fact]
+    public void WithYearToDateOnPast_ReturnsMonth()
+    {
+        Assert.Equal(12, new YearToDate(2020).Month);
+    }
+
+    [Fact]
     public void WithYearToDateOnPast_ReturnsFormattedString()
     {
         Assert.Equal("YTD: 1/1/2020 - 12/31/2020", new YearToDate(2020).ToString());
+    }
+
+    [Fact]
+    public void YearToDateCurrent()
+    {
+        var ytd = YearToDate.Current;
+        Assert.Equal(DateTime.UtcNow.Date, ytd.EndDate);
     }
 }

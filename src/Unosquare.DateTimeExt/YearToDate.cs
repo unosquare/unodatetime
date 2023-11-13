@@ -20,7 +20,7 @@ public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearWeeks,
 
     public YearEntity YearEntity => new(Year);
 
-    public int Month => StartDate.Month;
+    public int Month => EndDate.Month;
 
     public MonthToDate MonthToDate => new(StartDate);
 
