@@ -134,11 +134,4 @@ public static class DateExtensions
 
     public static DateTime OrToday(this DateTime date) =>
         date > DateTime.Today ? DateTime.Today : date;
-
-    public static YearQuarter ToYearQuarter(this DateTime date) => new(date);
-    public static YearMonth ToYearMonth(this DateTime date) => new(date);
-    public static YearWeek ToYearWeek(this DateTime date) => new(date);
-    public static MonthToDate ToMonthToDate(this DateTime date) => new(date);
-    public static YearToDate ToYearToDate(this DateTime date) => new(date.Year);
-    public static TrailingTwelveMonths ToTrailingTwelveMonths(this DateTime date) => new(date);
 }

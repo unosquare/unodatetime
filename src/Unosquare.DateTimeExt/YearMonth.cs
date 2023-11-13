@@ -19,16 +19,6 @@ public class YearMonth : YearAbstract, IYearMonthDateRange, IComparable<YearMont
     {
     }
 
-    public YearMonth(IHasReadOnlyMonth readOnlyMonth, int? year = null)
-        : this(readOnlyMonth.Month, year)
-    {
-    }
-
-    public YearMonth(int month, IHasReadOnlyYear readOnlyYear)
-        : this(month, readOnlyYear.Year)
-    {
-    }
-
     public YearMonth(DateTime? dateTime)
         : this((dateTime ?? DateTime.UtcNow).Month, (dateTime ?? DateTime.UtcNow).Year)
     {

@@ -24,16 +24,6 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
     {
     }
 
-    public YearQuarter(IHasReadOnlyQuarter readOnlyQuarter, int? year = null)
-        : this(readOnlyQuarter.Quarter, year)
-    {
-    }
-
-    public YearQuarter(int quarter, IHasReadOnlyYear readOnlyYear)
-        : this(quarter, readOnlyYear.Year)
-    {
-    }
-
     public YearQuarter(DateTime? dateTime)
         : this((dateTime ?? DateTime.UtcNow).GetQuarter(), (dateTime ?? DateTime.UtcNow).Year)
     {
