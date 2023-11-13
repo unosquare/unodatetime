@@ -3,6 +3,13 @@
 public class YearToDateTests
 {
     [Fact]
+    public void YearToDate_FromCurrent()
+    {
+        var ytd = new YearToDate(YearEntity.Current);
+        Assert.Equal(DateTime.UtcNow.Date, ytd.EndDate);
+    }
+
+    [Fact]
     public void YearToDateFromYear()
     {
         var ytd = new YearToDate(2021);
@@ -58,9 +65,48 @@ public class YearToDateTests
     }
 
     [Fact]
-    public void YearToDateCurrent()
+    public void YearToDateCurrent_ReturnsYear()
     {
-        var ytd = YearToDate.Current;
-        Assert.Equal(DateTime.UtcNow.Date, ytd.EndDate);
+        Assert.Equal(DateTime.UtcNow.Year, YearToDate.Current.Year);
+    }
+
+    [Fact]
+    public void YearToDate_MonthToDate()
+    {
+        var yearToDate = new YearToDate();
+        var monthToDate = yearToDate.MonthToDate;
+
+        Assert.Equal(yearToDate.Year, monthToDate.Year);
+        Assert.Equal(yearToDate.StartDate.Month, monthToDate.Month);
+    }
+
+    [Fact]
+    public void YearToDate_YearMonth()
+    {
+        var yearToDate = new YearToDate();
+        var yearMonth = yearToDate.YearMonth;
+
+        Assert.Equal(yearToDate.Year, yearMonth.Year);
+        Assert.Equal(yearToDate.StartDate.Month, yearMonth.Month);
+    }
+
+    [Fact]
+    public void YearToDate_YearQuarters()
+    {
+        var yearToDate = new YearToDate(2021);
+        var yearQuarters = yearToDate.YearQuarters;
+
+        Assert.Equal(4, yearQuarters.Count);
+        Assert.Equal(new(2021, 1, 1), yearQuarters.First().StartDate);
+    }
+
+    [Fact]
+    public void YearToDate_YearMonths()
+    {
+        var yearToDate = new YearToDate(2021);
+        var yearMonths = yearToDate.YearMonths;
+
+        Assert.Equal(12, yearMonths.Count);
+        Assert.Equal(new(2021, 1, 1), yearMonths.First().StartDate);
     }
 }

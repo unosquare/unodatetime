@@ -23,17 +23,6 @@ public class MonthToDate : YearMonth
         : this(readOnlyMonth.Month, readOnlyYear.Year)
     {
     }
-
-    public MonthToDate(IHasReadOnlyMonth readOnlyMonth, int? year = null)
-        : this(readOnlyMonth.Month, year)
-    {
-    }
-
-    public MonthToDate(int month, IHasReadOnlyYear readOnlyYear)
-        : this(month, readOnlyYear.Year)
-    {
-    }
-
     public new DateTime EndDate => base.EndDate.OrToday();
 
     public override string ToString() => $"MTD: {base.ToString()}";

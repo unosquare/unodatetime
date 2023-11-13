@@ -19,4 +19,12 @@ public class TrailingTwelveMonthsTests
     {
         Assert.Equal("TTM: 1/1/2021 - 1/1/2022", new TrailingTwelveMonths(new DateTime(2022, 1, 1)).ToString());
     }
+
+    [Fact]
+    public void TrailingTwelveMonths_Current()
+    {
+        var ttm = TrailingTwelveMonths.Current;
+
+        Assert.Equal(DateTime.UtcNow.AddMonths(-12).Date, ttm.StartDate);
+    }
 }

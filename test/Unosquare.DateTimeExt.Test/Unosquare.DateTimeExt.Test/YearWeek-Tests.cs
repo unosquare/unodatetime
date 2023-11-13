@@ -108,4 +108,34 @@ public class YearWeekTests
         Assert.False(result);
         Assert.Null(actual);
     }
+
+    [Fact]
+    public void YearWeek_Current()
+    {
+        var yearWeek = YearWeek.Current;
+
+        Assert.Equal(DateTime.UtcNow.Year, yearWeek.Year);
+    }
+
+    [Fact]
+    public void YearWeek_BoWYearEntity()
+    {
+        var yearWeek = new YearWeek(1, 2022);
+        var yearWeekBoW = yearWeek.BoWYearEntity;
+
+        Assert.Equal(yearWeek.Year, yearWeekBoW.Year);
+        Assert.Equal(yearWeek.StartDate.Month, yearWeekBoW.StartDate.Month);
+        Assert.Equal(1, yearWeekBoW.StartDate.Day);
+    }
+
+    [Fact]
+    public void YearWeek_EoWYearEntity()
+    {
+        var yearWeek = new YearWeek(1, 2022);
+        var yearWeekBoW = yearWeek.EoWYearEntity;
+
+        Assert.Equal(yearWeek.Year, yearWeekBoW.Year);
+        Assert.Equal(yearWeek.StartDate.Month, yearWeekBoW.StartDate.Month);
+        Assert.Equal(1, yearWeekBoW.StartDate.Day);
+    }
 }

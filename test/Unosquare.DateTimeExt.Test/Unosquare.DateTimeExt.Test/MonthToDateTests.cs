@@ -27,6 +27,15 @@ public class MonthToDateTests
     }
 
     [Fact]
+    public void MonthToDateFromDate()
+    {
+        var yearMonth = new DateTime(2021, 1, 1);
+        var mtd = new MonthToDate(yearMonth);
+        Assert.Equal(1, mtd.Month);
+        Assert.Equal(2021, mtd.Year);
+    }
+
+    [Fact]
     public void MonthToDateEndTest()
     {
         var mtd = new MonthToDate(1, 2021);

@@ -8,7 +8,7 @@ public abstract class YearAbstract : DateRange, IHasReadOnlyYear, IHasMonths, IH
         : base(startDate, endDate)
     {
         if (StartDate.Year != EndDate.Year)
-            throw new ArgumentOutOfRangeException(nameof(startDate), "The year should be same");
+            throw new ArgumentOutOfRangeException(nameof(startDate), "The year should be the same");
 
         Months = Enumerable.Range(StartDate.Month, EndDate.Month - StartDate.Month + 1).ToArray();
         Quarters = Enumerable.Range(StartDate.GetQuarter(), EndDate.GetQuarter() - StartDate.GetQuarter() + 1)

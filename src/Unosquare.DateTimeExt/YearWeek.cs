@@ -22,16 +22,6 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
     {
     }
 
-    public YearWeek(IHasReadOnlyWeek readOnlyWeek, int? year = null)
-        : this(readOnlyWeek.Week, year)
-    {
-    }
-
-    public YearWeek(int week, IHasReadOnlyYear readOnlyYear)
-        : this(week, readOnlyYear.Year)
-    {
-    }
-
     public YearWeek(DateTime? dateTime)
         : this((dateTime ?? DateTime.UtcNow).GetWeekOfYear(), (dateTime ?? DateTime.UtcNow).Year)
     {

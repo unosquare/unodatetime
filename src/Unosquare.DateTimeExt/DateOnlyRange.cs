@@ -71,11 +71,11 @@ public sealed class DateOnlyRange : RangeBase<DateOnly>, IReadOnlyDateOnlyRange,
 
     public static bool operator >(DateOnlyRange left, DateOnlyRange right) => left.StartDate > right.StartDate;
 
-    public static bool operator <(DateOnlyRange left, DateOnlyRange right) => left.EndDate < right.EndDate;
+    public static bool operator <(DateOnlyRange left, DateOnlyRange right) => left.StartDate < right.StartDate;
 
     public static bool operator !=(DateOnlyRange left, DateOnlyRange right) => !(left == right);
 
-    public static bool operator <=(DateOnlyRange left, DateOnlyRange right) => left.CompareTo(right) <= 0;
+    public static bool operator <=(DateOnlyRange left, DateOnlyRange right) => left.StartDate <= right.StartDate;
 
-    public static bool operator >=(DateOnlyRange left, DateOnlyRange right) => left.CompareTo(right) >= 0;
+    public static bool operator >=(DateOnlyRange left, DateOnlyRange right) => left.StartDate >= right.StartDate;
 }

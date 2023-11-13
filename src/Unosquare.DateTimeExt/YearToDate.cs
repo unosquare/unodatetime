@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearWeeks, IHasYearMonths, IHasYearQuarters
+public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearMonths, IHasYearQuarters
 {
     public YearToDate(IHasReadOnlyYear readOnlyYear)
         : this(readOnlyYear.Year)
@@ -25,8 +25,6 @@ public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearWeeks,
     public MonthToDate MonthToDate => new(StartDate);
 
     public YearMonth YearMonth => new(StartDate);
-
-    public IReadOnlyCollection<YearWeek> YearWeeks => throw new NotImplementedException();
 
     public IReadOnlyCollection<YearMonth> YearMonths { get; }
 
