@@ -2,10 +2,26 @@
 
 namespace Unosquare.DateTimeExt;
 
-public record DateRangeRecord(DateTime StartDate, DateTime EndDate) : IReadOnlyDateRange;
+public record DateRangeRecord : IReadOnlyDateRange
+{
+    public DateTime StartDate { get; init; }
+    public DateTime EndDate { get; init; }
+}
 
-public record YearMonthRecord(int Year, int Month) : IYearMonth;
+public record YearMonthRecord : IYearMonth
+{
+    public int Year { get; init; }
+    public int Month { get; init; }
+}
 
-public record YearQuarterRecord(int Year, int Quarter) : IYearQuarter;
+public record YearQuarterRecord : IYearQuarter
+{
+    public int Year { get; init; }
+    public int Quarter { get; init; }
+}
 
-public record YearWeekRecord(int Year, int Week) : IYearWeek;
+public record YearWeekRecord : IYearWeek
+{
+    public int Year { get; init; }
+    public int Week { get; init; }
+}

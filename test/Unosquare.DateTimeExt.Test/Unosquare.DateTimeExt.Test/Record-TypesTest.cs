@@ -10,7 +10,7 @@ public class RecordTypesTests
         var endDate = new DateTime(2022, 1, 31);
 
         // Act
-        var dateRange = new DateRangeRecord(startDate, endDate);
+        var dateRange = new DateRangeRecord { StartDate = startDate, EndDate = endDate};
 
         // Assert
         Assert.Equal(startDate, dateRange.StartDate);
@@ -21,11 +21,11 @@ public class RecordTypesTests
     public void YearMonthRecord_ShouldCreateInstance_WithValidYearAndMonth()
     {
         // Arrange
-        var year = 2022;
-        var month = 1;
+        const int year = 2022;
+        const int month = 1;
 
         // Act
-        var yearMonth = new YearMonthRecord(year, month);
+        var yearMonth = new YearMonthRecord { Year = year, Month = month };
 
         // Assert
         Assert.Equal(year, yearMonth.Year);
@@ -36,11 +36,11 @@ public class RecordTypesTests
     public void YearQuarterRecord_ShouldCreateInstance_WithValidYearAndQuarter()
     {
         // Arrange
-        var year = 2022;
-        var quarter = 1;
+        const int year = 2022;
+        const int quarter = 1;
 
         // Act
-        var yearQuarter = new YearQuarterRecord(year, quarter);
+        var yearQuarter = new YearQuarterRecord { Year = year, Quarter = quarter };
 
         // Assert
         Assert.Equal(year, yearQuarter.Year);
@@ -51,11 +51,11 @@ public class RecordTypesTests
     public void YearWeekRecord_ShouldCreateInstance_WithValidYearAndWeek()
     {
         // Arrange
-        var year = 2022;
-        var week = 1;
+        const int year = 2022;
+        const int week = 1;
 
         // Act
-        var yearWeek = new YearWeekRecord(year, week);
+        var yearWeek = new YearWeekRecord { Year = year, Week = week };
 
         // Assert
         Assert.Equal(year, yearWeek.Year);

@@ -51,7 +51,7 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
 
     public YearQuarter ToQuarter(int? quarter) => new(quarter, Year);
 
-    public new YearQuarterRecord ToRecord() => new(Year, Quarter);
+    public new YearQuarterRecord ToRecord() => new() { Year = Year, Quarter = Quarter };
 
     public void Deconstruct(out int year, out int quarter)
     {

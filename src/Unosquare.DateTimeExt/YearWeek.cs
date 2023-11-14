@@ -50,7 +50,7 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
 
     public YearWeek ToWeek(int? week) => new(week, Year);
 
-    public new YearWeekRecord ToRecord() => new(Year, Week);
+    public new YearWeekRecord ToRecord() => new() { Year = Year, Week = Week };
 
     public void Deconstruct(out int year, out int week)
     {

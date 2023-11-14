@@ -38,7 +38,7 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
 
     public bool Contains(DateTime date) => StartDate <= date && EndDate >= date;
 
-    public DateRangeRecord ToRecord() => new(StartDate, EndDate);
+    public DateRangeRecord ToRecord() => new() { StartDate = StartDate, EndDate = EndDate };
 
     public override string ToString() => $"{StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
 
