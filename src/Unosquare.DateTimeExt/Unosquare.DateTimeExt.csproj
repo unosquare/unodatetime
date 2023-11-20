@@ -4,9 +4,10 @@
 		<TargetFrameworks>net8.0;net6.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<LangVersion>preview</LangVersion>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-		<Version>1.2.1</Version>
+		<Version>1.3.0</Version>
 	</PropertyGroup>
 
 </Project>

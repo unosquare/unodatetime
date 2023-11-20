@@ -6,7 +6,7 @@ namespace Unosquare.DateTimeExt;
 /// <summary>
 /// Represents a range of dates with a start and end date.
 /// </summary>
-public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>, IHasBusinessDays
+public class DateRange : RangeBase<DateTime, DateTime>, IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>, IHasBusinessDays
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DateRange"/> class with the current UTC date and time.
@@ -22,7 +22,7 @@ public class DateRange : RangeBase<DateTime>, IReadOnlyDateRange, IHasReadOnlyMi
     }
 
     public DateRange(DateTime startDate, DateTime? endDate = null)
-    : base(startDate, endDate)
+    : base(startDate, endDate ?? startDate)
     {
         if (EndDate < StartDate)
             throw new ArgumentOutOfRangeException(nameof(endDate), "End Date should be after Start Date");

@@ -1,18 +1,18 @@
 ﻿namespace Unosquare.DateTimeExt;
 
-public abstract class RangeBase<T> where T : struct
+public abstract class RangeBase<TStart, TEnd> where TStart : struct
 {
-    protected RangeBase(T startDate, T? endDate = default)
+    protected RangeBase(TStart startDate, TEnd endDate)
     {
         StartDate = startDate;
-        EndDate = endDate ?? startDate;
+        EndDate = endDate;
     }
 
-    public T StartDate { get; }
+    public TStart StartDate { get; }
 
-    public T EndDate { get; }
+    public TEnd EndDate { get; }
 
-    public IEnumerable<TK> Select<TK>(Func<T, TK> selector)
+    public IEnumerable<TK> Select<TK>(Func<TStart, TK> selector)
     {
         using var enumerator = GetEnumerator();
 
@@ -20,9 +20,9 @@ public abstract class RangeBase<T> where T : struct
             yield return selector(enumerator.Current);
     }
 
-    public abstract IEnumerator<T> GetEnumerator();
+    public abstract IEnumerator<TStart> GetEnumerator();
 
-    public void Deconstruct(out T startDate, out T endDate)
+    public void Deconstruct(out TStart startDate, out TEnd endDate)
     {
         startDate = StartDate;
         endDate = EndDate;

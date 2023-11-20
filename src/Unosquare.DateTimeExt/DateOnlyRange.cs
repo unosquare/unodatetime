@@ -6,7 +6,7 @@ namespace Unosquare.DateTimeExt;
 /// <summary>
 /// Represents a range of dates with only the date component (no time component).
 /// </summary>
-public sealed class DateOnlyRange : RangeBase<DateOnly>, IReadOnlyDateOnlyRange, IComparable<DateOnlyRange>,
+public sealed class DateOnlyRange : RangeBase<DateOnly, DateOnly>, IReadOnlyDateOnlyRange, IComparable<DateOnlyRange>,
     IEnumerable<DateOnly>, IHasBusinessDaysDateOnly
 {
     /// <summary>
@@ -25,7 +25,7 @@ public sealed class DateOnlyRange : RangeBase<DateOnly>, IReadOnlyDateOnlyRange,
     /// <param name="endDate">The end date (optional).</param>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the end date is before the start date.</exception>
     public DateOnlyRange(DateOnly startDate, DateOnly? endDate = null)
-        : base(startDate, endDate)
+        : base(startDate, endDate ?? startDate)
     {
         if (EndDate < StartDate)
             throw new ArgumentOutOfRangeException(nameof(endDate), "End Date should be after Start Date");
