@@ -41,10 +41,10 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
 
     public bool IsCurrent => IsCurrentYear && Week == DateTime.UtcNow.GetWeekOfYear();
 
-    public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
+    public bool IsCurrentYear => Year == WeekYear;
 
     private static DateTime GetStartDate(int? week = null, int? year = null) =>
-        DateExtensions.FirstDateOfWeek(year ?? DateTime.UtcNow.Year, week ?? DateTime.UtcNow.GetWeekOfYear());
+        DateExtensions.FirstDateOfWeek(year ?? WeekYear, week ?? DateTime.UtcNow.GetWeekOfYear());
 
     public YearWeek AddWeeks(int count) => new(StartDate.AddDays(WeekDays * count));
 
@@ -83,4 +83,8 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
         result = new(week, year);
         return true;
     }
+
+    private static int WeekYear => DateTime.UtcNow.Month == 1 && DateTime.UtcNow.GetWeekOfYear() > 5
+        ? DateTime.UtcNow.Year - 1
+        : DateTime.UtcNow.Year;
 }

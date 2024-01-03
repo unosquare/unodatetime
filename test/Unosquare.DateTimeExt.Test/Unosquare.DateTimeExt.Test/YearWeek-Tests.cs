@@ -114,7 +114,9 @@ public class YearWeekTests
     {
         var yearWeek = YearWeek.Current;
 
-        Assert.Equal(DateTime.UtcNow.Year, yearWeek.Year);
+        Assert.Equal(DateTime.UtcNow.Month == 1 && DateTime.UtcNow.GetWeekOfYear() > 5
+            ? DateTime.UtcNow.Year - 1
+            : DateTime.UtcNow.Year, yearWeek.Year);
     }
 
     [Fact]
