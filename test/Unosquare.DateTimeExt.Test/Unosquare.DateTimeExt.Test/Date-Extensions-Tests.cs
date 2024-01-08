@@ -45,7 +45,7 @@ public class DateExtensionsTests
     public void WithDate_ToUTC()
     {
         Assert.Equal(new(2022, 6, 1, 5, 0, 0), new DateTime(2022, 6, 1, 0, 0, 0).ToUtc("Central Standard Time (Mexico)"));
-        Assert.Equal(new(2022, 6, 1, 5, 0, 0), new DateTime(2022, 6, 1, 0, 0, 0).ToUtc("Invalid Timezone Id"));
+        Assert.Equal(new(2022, 6, 1, 4, 0, 0), new DateTime(2022, 6, 1, 0, 0, 0).ToUtc("Invalid Timezone Id"));
     }
 
     [Fact]

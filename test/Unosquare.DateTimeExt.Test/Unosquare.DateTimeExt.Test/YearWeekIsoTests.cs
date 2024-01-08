@@ -9,7 +9,7 @@ public class YearWeekIsoTests
         yearMonth.Deconstruct(out DateTime startDate, out var endDate);
 
         Assert.Equal(new(2022, 1, 3), startDate);
-        Assert.Equal(new(2022, 1, 9), endDate);
+        Assert.Equal(new DateTime(2022, 1, 9).ToMidnight(), endDate);
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class YearWeekIsoTests
         var yearMonth = new YearWeekIso(1, 2022);
 
         Assert.Equal(new(2022, 1, 3), yearMonth.StartDate);
-        Assert.Equal(new(2022, 1, 9), yearMonth.EndDate);
+        Assert.Equal(new DateTime(2022, 1, 9).ToMidnight(), yearMonth.EndDate);
     }
 
     [Fact]

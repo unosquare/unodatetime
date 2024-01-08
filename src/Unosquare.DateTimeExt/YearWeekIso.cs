@@ -5,7 +5,7 @@ namespace Unosquare.DateTimeExt;
 public sealed class YearWeekIso : YearWeekBase, IComparable<YearWeekIso>
 {
     public YearWeekIso(int week, int year)
-        : base(ISOWeek.ToDateTime(year, week, DayOfWeek.Monday), ISOWeek.ToDateTime(year, week, DayOfWeek.Sunday))
+        : base(ISOWeek.ToDateTime(year, week, DayOfWeek.Monday), ISOWeek.ToDateTime(year, week, DayOfWeek.Sunday).ToMidnight())
     {
     }
 
