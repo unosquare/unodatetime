@@ -5,7 +5,7 @@ namespace Unosquare.DateTimeExt;
 public sealed class YearWeek : YearWeekBase, IComparable<YearWeek>
 {
     public YearWeek(int? week = null, int? year = null)
-        : base(GetStartDate(week, year), GetStartDate(week, year).AddDays(6))
+        : base(GetStartDate(week, year), GetStartDate(week, year).AddDays(6).ToMidnight())
     {
         Week = StartDate.GetWeekOfYear();
     }
