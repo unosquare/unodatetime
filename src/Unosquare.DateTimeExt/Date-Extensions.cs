@@ -68,7 +68,7 @@ public static class DateExtensions
         {
             DayOfWeek.Sunday => firstDayOfCurrentMonth.AddDays(1),
             DayOfWeek.Saturday => firstDayOfCurrentMonth.AddDays(2),
-            _ => firstDayOfCurrentMonth
+            _ => firstDayOfCurrentMonth,
         };
     }
 
@@ -80,7 +80,7 @@ public static class DateExtensions
         {
             DayOfWeek.Sunday => lastDayOfCurrentMonth.AddDays(-2),
             DayOfWeek.Saturday => lastDayOfCurrentMonth.AddDays(-1),
-            _ => lastDayOfCurrentMonth
+            _ => lastDayOfCurrentMonth,
         };
     }
 

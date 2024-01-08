@@ -2,10 +2,8 @@
 
 namespace Unosquare.DateTimeExt;
 
-public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWeek>
+public sealed class YearWeek : YearWeekBase, IComparable<YearWeek>
 {
-    private const int WeekDays = 7;
-
     public YearWeek(int? week = null, int? year = null)
         : base(GetStartDate(week, year), GetStartDate(week, year).AddDays(6))
     {
@@ -29,11 +27,8 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
 
     public static YearWeek Current => new();
 
-    public int Week { get; }
-    public int Year => StartDate.Year;
-
-    public YearEntity BoWYearEntity => new(StartDate.Year);
-    public YearEntity EoWYearEntity => new(EndDate.Year);
+    public override int Week { get; }
+    public override int Year => StartDate.Year;
 
     public YearWeek Next => new(StartDate.AddDays(WeekDays));
 
@@ -49,16 +44,6 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
     public YearWeek AddWeeks(int count) => new(StartDate.AddDays(WeekDays * count));
 
     public YearWeek ToWeek(int? week) => new(week, Year);
-
-    public new YearWeekRecord ToRecord() => new() { Year = Year, Week = Week };
-
-    public void Deconstruct(out int year, out int week)
-    {
-        year = Year;
-        week = Week;
-    }
-
-    public override string ToString() => $"{Year}-W{Week}";
 
     public int CompareTo(YearWeek? other)
     {
@@ -78,7 +63,9 @@ public sealed class YearWeek : DateRange, IYearWeekDateRange, IComparable<YearWe
         var parts = value.Split('-', 'W');
 
         if (parts.Length != 3 || !int.TryParse(parts[0], out var year) || !int.TryParse(parts[2], out var week))
+        {
             return false;
+        }
 
         result = new(week, year);
         return true;

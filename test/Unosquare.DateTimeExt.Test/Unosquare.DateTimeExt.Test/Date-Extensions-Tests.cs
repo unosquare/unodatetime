@@ -70,7 +70,7 @@ public class DateExtensionsTests
     [Fact]
     public void WithYearAndWeek_GetFirstDateOfWeek()
     {
-        Assert.Equal(new(2022, 1, 2), DateExtensions.FirstDateOfWeek(2022, 1));
+        Assert.Equal(new(2024, 1, 7), DateExtensions.FirstDateOfWeek(2024, 1));
     }
 
     [Fact]
