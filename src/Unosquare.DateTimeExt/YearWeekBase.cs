@@ -21,5 +21,5 @@ public abstract class YearWeekBase(DateTime startDate, DateTime endDate)
         week = Week;
     }
 
-    public override string ToString() => $"{Year}-W{Week}";
+    public override string ToString() => $"{Year}-W{Week.ToString().PadLeft(2, '0')}";
 }
