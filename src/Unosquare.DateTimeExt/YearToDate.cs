@@ -2,6 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
+[DebuggerDisplay("YTD {Year} ({ToDateRangeString()})")]
 public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearMonths, IHasYearQuarters
 {
     public YearToDate(IHasReadOnlyYear readOnlyYear)

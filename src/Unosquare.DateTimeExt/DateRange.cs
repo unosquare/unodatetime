@@ -6,6 +6,7 @@ namespace Unosquare.DateTimeExt;
 /// <summary>
 /// Represents a range of dates with a start and end date.
 /// </summary>
+[DebuggerDisplay("Date Range ({ToDateRangeString()})")]
 public class DateRange : RangeBase<DateTime, DateTime>, IReadOnlyDateRange, IHasReadOnlyMidnightEndDate, IComparable<DateRange>, IEnumerable<DateTime>, IHasBusinessDays
 {
     /// <summary>
@@ -40,7 +41,9 @@ public class DateRange : RangeBase<DateTime, DateTime>, IReadOnlyDateRange, IHas
 
     public DateRangeRecord ToRecord() => new() { StartDate = StartDate, EndDate = EndDate };
 
-    public override string ToString() => $"{StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
+    public string ToDateRangeString() => $"{StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
+
+    public override string ToString() => ToDateRangeString();
 
     public override int GetHashCode() => StartDate.GetHashCode() + EndDate.GetHashCode();
 

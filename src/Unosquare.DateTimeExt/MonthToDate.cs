@@ -2,6 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
+[DebuggerDisplay("MTD {Year}-{Month} ({ToDateRangeString()})")]
 public class MonthToDate : YearMonth
 {
     public MonthToDate(int? month = null, int? year = null)
@@ -23,6 +24,7 @@ public class MonthToDate : YearMonth
         : this(readOnlyMonth.Month, readOnlyYear.Year)
     {
     }
+
     public new DateTime EndDate => base.EndDate.OrToday();
 
     public override string ToString() => $"MTD: {base.ToString()}";

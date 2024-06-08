@@ -2,6 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
+[DebuggerDisplay("ISO Week {Year}-W{Week} ({ToDateRangeString()})")]
 public sealed class YearWeekIso : YearWeekBase, IComparable<YearWeekIso>
 {
     public YearWeekIso(int week, int year)

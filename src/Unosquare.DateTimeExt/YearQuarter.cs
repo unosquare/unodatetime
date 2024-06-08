@@ -2,6 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
+[DebuggerDisplay("{ToString()} ({ToDateRangeString()})")]
 public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQuarter>, IHasMonths
 {
     private const int QuarterMonths = 3;

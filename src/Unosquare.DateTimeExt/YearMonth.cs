@@ -2,6 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
+[DebuggerDisplay("{ToString()} ({ToDateRangeString()})")]
 public class YearMonth : YearAbstract, IYearMonthDateRange, IComparable<YearMonth>
 {
     public YearMonth(int? month = null, int? year = null)
