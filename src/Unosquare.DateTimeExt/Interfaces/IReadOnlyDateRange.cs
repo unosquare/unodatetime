@@ -1,5 +1,3 @@
 ﻿namespace Unosquare.DateTimeExt.Interfaces;
 
-public interface IReadOnlyDateRange : IHasReadOnlyStartDate, IHasReadOnlyEndDate
-{
-}
+public interface IReadOnlyDateRange : IHasReadOnlyStartDate, IHasReadOnlyEndDate;

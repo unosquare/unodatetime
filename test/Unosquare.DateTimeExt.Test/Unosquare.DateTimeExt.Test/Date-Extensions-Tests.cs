@@ -3,23 +3,23 @@ namespace Unosquare.DateTimeExt.Test;
 public class DateExtensionsTests
 {
     public static readonly object[][] BusinessAndWeekendDates =
-    {
-        new object[] { new DateTime(2022, 10, 3), new DateTime(2022, 10, 8)},
-        new object[] { new DateTime(2022, 10, 10), new DateTime(2022, 10, 16)},
-        new object[] { new DateTime(2022, 10, 24), new DateTime(2022, 10, 30)}
-    };
+    [
+        [new DateTime(2022, 10, 3), new DateTime(2022, 10, 8)],
+        [new DateTime(2022, 10, 10), new DateTime(2022, 10, 16)],
+        [new DateTime(2022, 10, 24), new DateTime(2022, 10, 30)],
+    ];
 
     public static readonly object[][] MonthsRange =
-    {
-        new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 12, 01)},
-        new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 2, 01)},
-        new object[] { new DateTime(2022, 01, 01), new DateTime(2022, 6, 01)}
-    };
+    [
+        [new DateTime(2022, 01, 01), new DateTime(2022, 12, 01)],
+        [new DateTime(2022, 01, 01), new DateTime(2022, 2, 01)],
+        [new DateTime(2022, 01, 01), new DateTime(2022, 6, 01)],
+    ];
 
     public static readonly object[][] NormalAndLeapYear =
-    {
-        new object[] { new DateTime(2022, 02, 01), new DateTime(2020, 02, 01)},
-    };
+    [
+        [new DateTime(2022, 02, 01), new DateTime(2020, 02, 01)],
+    ];
 
     [Fact]
     public void WithDate_ToFormattedString()
@@ -341,5 +341,23 @@ public class DateExtensionsTests
         var orToday = date.OrToday();
 
         Assert.True(orToday <= today);
+    }
+
+    [Fact]
+    public void GetNextBusinessDay_ReturnsNextBusinessDay()
+    {
+        var date = new DateTime(2022, 1, 1);
+        var nextBusinessDay = date.GetNextBusinessDay();
+
+        Assert.Equal(new(2022, 1, 3), nextBusinessDay);
+    }
+
+    [Fact]
+    public void GetDateFromWeekDay_ReturnsDateFromWeekDay()
+    {
+        var date = new DateTime(2022, 1, 1);
+        var dateFromWeekDay = date.GetDateFromWeekDay(1);
+
+        Assert.Equal(new(2022, 1, 3), dateFromWeekDay);
     }
 }

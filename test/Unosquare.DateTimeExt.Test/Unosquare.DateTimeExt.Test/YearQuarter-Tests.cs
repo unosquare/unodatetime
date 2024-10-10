@@ -21,7 +21,7 @@ public class YearQuarterTests
     [Fact]
     public void WithYearQuarter_ReturnsMonths()
     {
-        Assert.Equal(new[] { 10, 11, 12 }, new YearQuarter(year: 2022, quarter: 4).Months);
+        Assert.Equal([10, 11, 12], new YearQuarter(year: 2022, quarter: 4).Months);
     }
 
     [Fact]

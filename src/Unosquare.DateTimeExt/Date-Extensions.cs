@@ -134,4 +134,28 @@ public static class DateExtensions
 
     public static DateTime OrToday(this DateTime date) =>
         date > DateTime.Today ? DateTime.Today : date;
+
+    public static DateTime GetNextBusinessDay(this DateTime currentDate)
+    {
+        do
+        {
+            currentDate = currentDate.AddDays(1);
+        } while (currentDate.IsWeekend());
+
+        return currentDate;
+    }
+
+    public static DateTime GetDateFromWeekDay(this DateTime currentDate, int weekday)
+    {
+        var daysAdded = 0;
+
+        while (daysAdded < weekday)
+        {
+            currentDate = currentDate.AddDays(1);
+            if (currentDate.DayOfWeek != DayOfWeek.Saturday && currentDate.DayOfWeek != DayOfWeek.Sunday)
+                daysAdded++;
+        }
+
+        return currentDate;
+    }
 }

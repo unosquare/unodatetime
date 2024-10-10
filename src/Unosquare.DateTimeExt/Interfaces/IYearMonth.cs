@@ -1,5 +1,3 @@
 ﻿namespace Unosquare.DateTimeExt.Interfaces;
 
-public interface IYearMonth : IHasReadOnlyYear, IHasReadOnlyMonth
-{
-}
+public interface IYearMonth : IHasReadOnlyYear, IHasReadOnlyMonth;

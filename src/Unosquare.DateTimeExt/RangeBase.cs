@@ -1,16 +1,11 @@
 ﻿namespace Unosquare.DateTimeExt;
 
-public abstract class RangeBase<TStart, TEnd> where TStart : struct
+public abstract class RangeBase<TStart, TEnd>(TStart startDate, TEnd endDate)
+    where TStart : struct
 {
-    protected RangeBase(TStart startDate, TEnd endDate)
-    {
-        StartDate = startDate;
-        EndDate = endDate;
-    }
+    public TStart StartDate { get; } = startDate;
 
-    public TStart StartDate { get; }
-
-    public TEnd EndDate { get; }
+    public TEnd EndDate { get; } = endDate;
 
     public IEnumerable<TK> Select<TK>(Func<TStart, TK> selector)
     {

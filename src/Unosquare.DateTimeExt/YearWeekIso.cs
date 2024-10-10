@@ -3,13 +3,9 @@
 namespace Unosquare.DateTimeExt;
 
 [DebuggerDisplay("ISO Week {Year}-W{Week} ({ToDateRangeString()})")]
-public sealed class YearWeekIso : YearWeekBase, IComparable<YearWeekIso>
+public sealed class YearWeekIso(int week, int year) : YearWeekBase(ISOWeek.ToDateTime(year, week, DayOfWeek.Monday),
+    ISOWeek.ToDateTime(year, week, DayOfWeek.Sunday).ToMidnight()), IComparable<YearWeekIso>
 {
-    public YearWeekIso(int week, int year)
-        : base(ISOWeek.ToDateTime(year, week, DayOfWeek.Monday), ISOWeek.ToDateTime(year, week, DayOfWeek.Sunday).ToMidnight())
-    {
-    }
-
     public YearWeekIso(IYearWeek yearWeek)
         : this(yearWeek.Week, yearWeek.Year)
     {

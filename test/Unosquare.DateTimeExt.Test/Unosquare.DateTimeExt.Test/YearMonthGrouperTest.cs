@@ -2,15 +2,15 @@ namespace Unosquare.DateTimeExt.Test;
 
 public class YearMonthGrouperTests
 {
-    private readonly List<YearMonthRecordWithData> _data = new()
-    {
-        new() { Year = 2022, Month = 1, Total = 5 },
-        new() { Year = 2022, Month = 2, Total = 6 },
-        new() { Year = 2022, Month = 2, Total = 1 },
-        new() { Year = 2022, Month = 1, Total = 1 },
-        new() { Year = 2022, Month = 2, Total = 1 },
-        new() { Year = 2022, Month = 1, Total = 1 }
-    };
+    private readonly List<YearMonthRecordWithData> _data =
+    [
+        new() {Year = 2022, Month = 1, Total = 5},
+        new() {Year = 2022, Month = 2, Total = 6},
+        new() {Year = 2022, Month = 2, Total = 1},
+        new() {Year = 2022, Month = 1, Total = 1},
+        new() {Year = 2022, Month = 2, Total = 1},
+        new() {Year = 2022, Month = 1, Total = 1},
+    ];
 
     [Fact]
     public void GroupByDateRange_ShouldGroupByYearMonth()

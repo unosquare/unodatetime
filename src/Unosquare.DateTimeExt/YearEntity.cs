@@ -1,12 +1,8 @@
 ﻿namespace Unosquare.DateTimeExt;
 
-public sealed class YearEntity : YearAbstract
+public sealed class YearEntity(int? year = null) : YearAbstract(new(year ?? DateTime.UtcNow.Year, 1, 1),
+    new(year ?? DateTime.UtcNow.Year, 12, 31))
 {
-    public YearEntity(int? year = null)
-        : base(new(year ?? DateTime.UtcNow.Year, 1, 1), new(year ?? DateTime.UtcNow.Year, 12, 31))
-    {
-    }
-
     public YearEntity(DateTime? dateTime)
         : this((dateTime ?? DateTime.UtcNow).Year)
     {
