@@ -56,7 +56,7 @@ public sealed class YearWeek : YearWeekBase, IComparable<YearWeek>
 
     public static bool TryParse(string? value, out YearWeek result)
     {
-        result = default!;
+        result = null!;
 
         if (string.IsNullOrWhiteSpace(value))
             return false;

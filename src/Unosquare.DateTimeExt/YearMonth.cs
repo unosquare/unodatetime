@@ -46,7 +46,7 @@ public class YearMonth(int? month = null, int? year = null)
 
     public static bool TryParse(string? value, out YearMonth range)
     {
-        range = default!;
+        range = null!;
 
         if (value == null)
             return false;

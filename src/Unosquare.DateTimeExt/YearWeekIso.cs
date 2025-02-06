@@ -48,7 +48,7 @@ public sealed class YearWeekIso(int week, int year) : YearWeekBase(ISOWeek.ToDat
 
     public static bool TryParse(string? value, out YearWeekIso result)
     {
-        result = default!;
+        result = null!;
 
         if (string.IsNullOrWhiteSpace(value))
             return false;

@@ -74,7 +74,7 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
 
     public static bool TryParse(string? value, out YearQuarter result)
     {
-        result = default!;
+        result = null!;
 
         if (string.IsNullOrWhiteSpace(value))
             return false;

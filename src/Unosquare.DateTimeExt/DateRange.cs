@@ -23,13 +23,13 @@ public class DateRange : RangeBase<DateTime, DateTime>, IReadOnlyDateRange, IHas
     }
 
     public DateRange(DateTime startDate, DateTime? endDate = null)
-    : base(startDate, endDate ?? startDate)
+    : base(startDate.Date, endDate?.Date ?? startDate.Date)
     {
         if (EndDate < StartDate)
             throw new ArgumentOutOfRangeException(nameof(endDate), "End Date should be after Start Date");
     }
 
-    public DateTime MidnightEndDate => EndDate.Date.AddDays(1).AddSeconds(-1);
+    public DateTime MidnightEndDate => EndDate.AddDays(1).AddSeconds(-1);
 
     public DateTime FirstBusinessDay => StartDate.GetFirstBusinessDayOfMonth();
 
@@ -85,7 +85,7 @@ public class DateRange : RangeBase<DateTime, DateTime>, IReadOnlyDateRange, IHas
 
     public static bool TryParse(string? value, out DateRange result)
     {
-        result = default!;
+        result = null!;
 
         if (string.IsNullOrWhiteSpace(value))
             return false;
