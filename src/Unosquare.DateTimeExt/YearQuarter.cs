@@ -3,7 +3,7 @@
 namespace Unosquare.DateTimeExt;
 
 [DebuggerDisplay("{ToString()} ({ToDateRangeString()})")]
-public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQuarter>, IHasMonths
+public class YearQuarter : FixedDateRangeBase<YearQuarter>, IYearQuarterDateRange, IComparable<YearQuarter>, IHasMonths
 {
     private const int QuarterMonths = 3;
 
@@ -40,11 +40,11 @@ public class YearQuarter : DateRange, IYearQuarterDateRange, IComparable<YearQua
 
     public YearEntity YearEntity => new(Year);
 
-    public YearQuarter Next => new(StartDate.AddMonths(QuarterMonths));
+    public override YearQuarter Next => new(StartDate.AddMonths(QuarterMonths));
 
-    public YearQuarter Previous => new(StartDate.AddMonths(-QuarterMonths));
+    public override YearQuarter Previous => new(StartDate.AddMonths(-QuarterMonths));
 
-    public bool IsCurrent => Quarter == DateTime.UtcNow.GetQuarter() && IsCurrentYear;
+    public override bool IsCurrent => Quarter == DateTime.UtcNow.GetQuarter() && IsCurrentYear;
 
     public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
 

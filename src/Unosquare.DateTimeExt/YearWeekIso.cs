@@ -3,7 +3,7 @@
 namespace Unosquare.DateTimeExt;
 
 [DebuggerDisplay("ISO Week {Year}-W{Week} ({ToDateRangeString()})")]
-public sealed class YearWeekIso(int week, int year) : YearWeekBase(ISOWeek.ToDateTime(year, week, DayOfWeek.Monday),
+public sealed class YearWeekIso(int week, int year) : YearWeekBase<YearWeekIso>(ISOWeek.ToDateTime(year, week, DayOfWeek.Monday),
     ISOWeek.ToDateTime(year, week, DayOfWeek.Sunday).ToMidnight()), IComparable<YearWeekIso>
 {
     public YearWeekIso(IYearWeek yearWeek)
@@ -26,11 +26,11 @@ public sealed class YearWeekIso(int week, int year) : YearWeekBase(ISOWeek.ToDat
     public override int Week => ISOWeek.GetWeekOfYear(StartDate);
     public override int Year => ISOWeek.GetYear(StartDate);
 
-    public YearWeekIso Next => new(StartDate.AddDays(WeekDays));
+    public override YearWeekIso Next => new(StartDate.AddDays(WeekDays));
 
-    public YearWeekIso Previous => new(StartDate.AddDays(-WeekDays));
+    public override YearWeekIso Previous => new(StartDate.AddDays(-WeekDays));
 
-    public bool IsCurrent => IsCurrentYear && Week == ISOWeek.GetWeekOfYear(DateTime.UtcNow);
+    public override bool IsCurrent => IsCurrentYear && Week == ISOWeek.GetWeekOfYear(DateTime.UtcNow);
 
     public bool IsCurrentYear => Year == ISOWeek.GetYear(DateTime.UtcNow);
 

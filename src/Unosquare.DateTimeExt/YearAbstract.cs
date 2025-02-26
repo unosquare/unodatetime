@@ -2,7 +2,7 @@
 
 namespace Unosquare.DateTimeExt;
 
-public abstract class YearAbstract : DateRange, IHasReadOnlyYear, IHasMonths, IHasQuarters, IHasWeeks
+public abstract class YearAbstract<T> : FixedDateRangeBase<T>, IHasReadOnlyYear, IHasMonths, IHasQuarters, IHasWeeks
 {
     protected YearAbstract(DateTime startDate, DateTime endDate)
         : base(startDate, endDate)

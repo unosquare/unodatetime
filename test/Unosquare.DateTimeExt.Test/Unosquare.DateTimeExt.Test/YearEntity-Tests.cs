@@ -1,4 +1,6 @@
-﻿namespace Unosquare.DateTimeExt.Test;
+﻿using Unosquare.DateTimeExt.Interfaces;
+
+namespace Unosquare.DateTimeExt.Test;
 
 public class YearEntityTests
 {
@@ -23,7 +25,7 @@ public class YearEntityTests
     [Fact]
     public void WithYear_ReturnsNextYear()
     {
-        var result = new YearEntity(2023);
+        IReadOnlyFixedDateRange<IHasReadOnlyYear> result = new YearEntity(2023);
 
         Assert.Equal(2024, result.Next.Year);
     }

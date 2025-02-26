@@ -3,7 +3,7 @@
 namespace Unosquare.DateTimeExt;
 
 [DebuggerDisplay("YTD {Year} ({ToDateRangeString()})")]
-public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearMonths, IHasYearQuarters
+public sealed class YearToDate : YearAbstract<YearToDate>, IHasReadOnlyMonth, IHasYearMonths, IHasYearQuarters
 {
     public YearToDate(IHasReadOnlyYear readOnlyYear)
         : this(readOnlyYear.Year)
@@ -30,6 +30,12 @@ public sealed class YearToDate : YearAbstract, IHasReadOnlyMonth, IHasYearMonths
     public IReadOnlyCollection<YearMonth> YearMonths { get; }
 
     public IReadOnlyCollection<YearQuarter> YearQuarters { get; }
+
+    public override YearToDate Previous => new(StartDate.AddYears(-1).Year);
+
+    public override YearToDate Next => new(StartDate.AddYears(1).Year);
+
+    public override bool IsCurrent => IsCurrentYear;
 
     public override string ToString() => $"YTD: {base.ToString()}";
 

@@ -4,7 +4,8 @@ namespace Unosquare.DateTimeExt;
 
 [DebuggerDisplay("{ToString()} ({ToDateRangeString()})")]
 public class YearMonth(int? month = null, int? year = null)
-    : YearAbstract(GetStartDate(month, year), GetStartDate(month, year).GetLastDayOfMonth()), IYearMonthDateRange,
+    : YearAbstract<YearMonth>(GetStartDate(month, year), GetStartDate(month, year).GetLastDayOfMonth()),
+        IYearMonthDateRange,
         IComparable<YearMonth>
 {
     public YearMonth(IYearMonth yearMonth)
@@ -33,11 +34,11 @@ public class YearMonth(int? month = null, int? year = null)
 
     public YearEntity YearEntity => new(Year);
 
-    public YearMonth Next => new(StartDate.AddMonths(1));
+    public override YearMonth Next => new(StartDate.AddMonths(1));
 
-    public YearMonth Previous => new(StartDate.AddMonths(-1));
+    public override YearMonth Previous => new(StartDate.AddMonths(-1));
 
-    public bool IsCurrent => Month == DateTime.UtcNow.Month && IsCurrentYear;
+    public override bool IsCurrent => Month == DateTime.UtcNow.Month && IsCurrentYear;
 
     private static DateTime GetStartDate(int? month = null, int? year = null) => new(
         year ?? DateTime.UtcNow.Year,

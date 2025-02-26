@@ -2,8 +2,8 @@
 
 namespace Unosquare.DateTimeExt;
 
-public abstract class YearWeekBase(DateTime startDate, DateTime endDate)
-    : DateRange(startDate, endDate), IYearWeekDateRange
+public abstract class YearWeekBase<T>(DateTime startDate, DateTime endDate)
+    : FixedDateRangeBase<T>(startDate, endDate), IYearWeekDateRange
 {
     protected const int WeekDays = 7;
 
