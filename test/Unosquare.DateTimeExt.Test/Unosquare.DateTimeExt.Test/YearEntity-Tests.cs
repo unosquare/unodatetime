@@ -25,7 +25,7 @@ public class YearEntityTests
     [Fact]
     public void WithYear_ReturnsNextYear()
     {
-        IReadOnlyFixedDateRange<IHasReadOnlyYear> result = new YearEntity(2023);
+        ILinkedEntity<IHasReadOnlyYear> result = new YearEntity(2023);
 
         Assert.Equal(2024, result.Next.Year);
     }

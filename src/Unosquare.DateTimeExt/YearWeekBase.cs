@@ -3,10 +3,13 @@
 namespace Unosquare.DateTimeExt;
 
 public abstract class YearWeekBase<T>(DateTime startDate, DateTime endDate)
-    : FixedDateRangeBase<T>(startDate, endDate), IYearWeekDateRange
+    : DateRange(startDate, endDate), IYearWeekDateRange, ILinkedEntity<T>
 {
     protected const int WeekDays = 7;
 
+    public abstract T Previous { get; }
+    public abstract T Next { get; }
+    public abstract bool IsCurrent { get; }
     public abstract int Year { get; }
     public abstract int Week { get; }
 

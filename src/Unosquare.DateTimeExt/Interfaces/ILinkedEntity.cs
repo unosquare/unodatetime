@@ -1,6 +1,6 @@
 ﻿namespace Unosquare.DateTimeExt.Interfaces;
 
-public interface IReadOnlyFixedDateRange<out T> : IReadOnlyDateRange
+public interface ILinkedEntity<out T>
 {
     T Previous { get; }
     T Next { get; }

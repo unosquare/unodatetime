@@ -3,7 +3,7 @@
 namespace Unosquare.DateTimeExt;
 
 [DebuggerDisplay("{ToString()} ({ToDateRangeString()})")]
-public class YearQuarter : FixedDateRangeBase<YearQuarter>, IYearQuarterDateRange, IComparable<YearQuarter>, IHasMonths
+public class YearQuarter : YearAbstract<YearQuarter>, IYearQuarterDateRange, IComparable<YearQuarter>
 {
     private const int QuarterMonths = 3;
 
@@ -11,8 +11,6 @@ public class YearQuarter : FixedDateRangeBase<YearQuarter>, IYearQuarterDateRang
         : base(GetStartDate(quarter, year), GetStartDate(quarter, year).AddMonths(QuarterMonths).AddDays(-1))
     {
         Quarter = StartDate.GetQuarter();
-
-        Months = Enumerable.Range(StartDate.Month, EndDate.Month - StartDate.Month + 1).ToArray();
     }
 
     public YearQuarter(IYearQuarter yearQuarter)
@@ -34,10 +32,6 @@ public class YearQuarter : FixedDateRangeBase<YearQuarter>, IYearQuarterDateRang
 
     public int Quarter { get; }
 
-    public int Year => StartDate.Year;
-
-    public IReadOnlyCollection<int> Months { get; }
-
     public YearEntity YearEntity => new(Year);
 
     public override YearQuarter Next => new(StartDate.AddMonths(QuarterMonths));
@@ -45,8 +39,6 @@ public class YearQuarter : FixedDateRangeBase<YearQuarter>, IYearQuarterDateRang
     public override YearQuarter Previous => new(StartDate.AddMonths(-QuarterMonths));
 
     public override bool IsCurrent => Quarter == DateTime.UtcNow.GetQuarter() && IsCurrentYear;
-
-    public bool IsCurrentYear => Year == DateTime.UtcNow.Year;
 
     public YearQuarter AddQuarters(int count) => new(StartDate.AddMonths(QuarterMonths * count));
 
