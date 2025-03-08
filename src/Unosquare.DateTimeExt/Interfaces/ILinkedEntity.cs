@@ -2,8 +2,8 @@
 
 public interface ILinkedEntity<out T>
 {
-    T Previous { get; }
-    T Next { get; }
+    T Previous(int offset = 1);
+    T Next(int offset = 1);
 
     bool IsCurrent { get; }
 }

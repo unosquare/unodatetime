@@ -31,9 +31,9 @@ public sealed class YearToDate : YearAbstract<YearToDate>, IHasReadOnlyMonth, IH
 
     public IReadOnlyCollection<YearQuarter> YearQuarters { get; }
 
-    public override YearToDate Previous => new(StartDate.AddYears(-1).Year);
+    public override YearToDate Previous(int offset = 1) => new(StartDate.AddYears(-offset).Year);
 
-    public override YearToDate Next => new(StartDate.AddYears(1).Year);
+    public override YearToDate Next(int offset = 1) => new(StartDate.AddYears(offset).Year);
 
     public override bool IsCurrent => IsCurrentYear;
 

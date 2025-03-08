@@ -109,4 +109,22 @@ public class YearToDateTests
         Assert.Equal(12, yearMonths.Count);
         Assert.Equal(new(2021, 1, 1), yearMonths.First().StartDate);
     }
+
+    [Fact]
+    public void YearToDate_Previous()
+    {
+        var yearToDate = new YearToDate(2021);
+        var previousYearToDate = yearToDate.Previous();
+
+        Assert.Equal(2020, previousYearToDate.Year);
+    }
+
+    [Fact]
+    public void YearToDate_Next()
+    {
+        var yearToDate = new YearToDate(2021);
+        var nextYearToDate = yearToDate.Next();
+
+        Assert.Equal(2022, nextYearToDate.Year);
+    }
 }

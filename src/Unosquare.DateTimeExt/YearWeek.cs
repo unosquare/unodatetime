@@ -31,9 +31,9 @@ public sealed class YearWeek : YearWeekBase<YearWeek>, IComparable<YearWeek>
     public override int Week { get; }
     public override int Year => StartDate.Year;
 
-    public override YearWeek Next => new(StartDate.AddDays(WeekDays));
+    public override YearWeek Next(int offset = 1) => new(StartDate.AddDays(WeekDays * offset));
 
-    public override YearWeek Previous => new(StartDate.AddDays(-WeekDays));
+    public override YearWeek Previous(int offset = 1) => new(StartDate.AddDays(-WeekDays * offset));
 
     public override bool IsCurrent => IsCurrentYear && Week == DateTime.UtcNow.GetWeekOfYear();
 

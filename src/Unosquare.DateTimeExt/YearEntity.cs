@@ -10,9 +10,9 @@ public sealed class YearEntity(int? year = null) : YearAbstract<YearEntity>(new(
 
     public static YearEntity Current => new();
 
-    public override YearEntity Next => new(StartDate.AddYears(1));
+    public override YearEntity Next(int offset = 1) => new(StartDate.AddYears(offset));
 
-    public override YearEntity Previous => new(StartDate.AddYears(-1));
+    public override YearEntity Previous(int offset = 1) => new(StartDate.AddYears(-offset));
 
     public override bool IsCurrent => IsCurrentYear;
 }

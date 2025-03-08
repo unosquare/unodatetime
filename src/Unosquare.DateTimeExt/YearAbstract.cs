@@ -30,9 +30,9 @@ public abstract class YearAbstract<T> : DateRange, IHasReadOnlyYear, IHasMonths,
 
     public IReadOnlyCollection<int> Quarters { get; }
 
-    public abstract T Previous { get; }
+    public abstract T Previous(int offset = 1);
 
-    public abstract T Next { get; }
+    public abstract T Next(int offset = 1);
 
     public abstract bool IsCurrent { get; }
 }

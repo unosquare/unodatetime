@@ -26,9 +26,9 @@ public sealed class YearWeekIso(int week, int year) : YearWeekBase<YearWeekIso>(
     public override int Week => ISOWeek.GetWeekOfYear(StartDate);
     public override int Year => ISOWeek.GetYear(StartDate);
 
-    public override YearWeekIso Next => new(StartDate.AddDays(WeekDays));
+    public override YearWeekIso Next(int offset = 1) => new(StartDate.AddDays(WeekDays * offset));
 
-    public override YearWeekIso Previous => new(StartDate.AddDays(-WeekDays));
+    public override YearWeekIso Previous(int offset = 1) => new(StartDate.AddDays(-WeekDays * offset));
 
     public override bool IsCurrent => IsCurrentYear && Week == ISOWeek.GetWeekOfYear(DateTime.UtcNow);
 
