@@ -7,8 +7,8 @@ public abstract class YearWeekBase<T>(DateTime startDate, DateTime endDate)
 {
     protected const int WeekDays = 7;
 
-    public abstract T Previous { get; }
-    public abstract T Next { get; }
+    public abstract T Previous(int offset = 1);
+    public abstract T Next(int offset = 1);
     public abstract bool IsCurrent { get; }
     public abstract int Year { get; }
     public abstract int Week { get; }

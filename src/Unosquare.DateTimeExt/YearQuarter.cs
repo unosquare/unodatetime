@@ -34,9 +34,9 @@ public class YearQuarter : YearAbstract<YearQuarter>, IYearQuarterDateRange, ICo
 
     public YearEntity YearEntity => new(Year);
 
-    public override YearQuarter Next => new(StartDate.AddMonths(QuarterMonths));
+    public override YearQuarter Next(int offset = 1) => new(StartDate.AddMonths(QuarterMonths * offset));
 
-    public override YearQuarter Previous => new(StartDate.AddMonths(-QuarterMonths));
+    public override YearQuarter Previous(int offset = 1) => new(StartDate.AddMonths(-QuarterMonths * offset));
 
     public override bool IsCurrent => Quarter == DateTime.UtcNow.GetQuarter() && IsCurrentYear;
 

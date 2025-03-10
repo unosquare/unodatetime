@@ -23,7 +23,7 @@ public class YearMonthTests
     {
         var yearMonth = new YearMonth(month: 1, year: 2022);
 
-        Assert.Equal(new(2022, 2, 1), yearMonth.Next.StartDate);
+        Assert.Equal(new(2022, 2, 1), yearMonth.Next().StartDate);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class YearMonthTests
     {
         var yearMonth = new YearMonth(month: 2, year: 2022);
 
-        Assert.Equal(new(2022, 1, 1), yearMonth.Previous.StartDate);
+        Assert.Equal(new(2022, 1, 1), yearMonth.Previous().StartDate);
     }
 
     [Fact]

@@ -34,9 +34,9 @@ public class YearMonth(int? month = null, int? year = null)
 
     public YearEntity YearEntity => new(Year);
 
-    public override YearMonth Next => new(StartDate.AddMonths(1));
+    public override YearMonth Next(int offset = 1) => new(StartDate.AddMonths(offset));
 
-    public override YearMonth Previous => new(StartDate.AddMonths(-1));
+    public override YearMonth Previous(int offset = 1) => new(StartDate.AddMonths(-offset));
 
     public override bool IsCurrent => Month == DateTime.UtcNow.Month && IsCurrentYear;
 

@@ -51,7 +51,7 @@ public class YearWeekIsoTests
     {
         var yearMonth = new YearWeekIso(2, 2022);
 
-        Assert.Equal(new(2022, 1, 3), yearMonth.Previous.StartDate);
+        Assert.Equal(new(2022, 1, 3), yearMonth.Previous().StartDate);
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public class YearWeekIsoTests
     {
         var yearMonth = new YearWeekIso(1, 2022);
 
-        Assert.Equal(new(2022, 1, 10), yearMonth.Next.StartDate);
+        Assert.Equal(new(2022, 1, 10), yearMonth.Next().StartDate);
     }
 
     [Fact]
