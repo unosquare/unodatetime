@@ -27,7 +27,7 @@ public class YearEntityTests
     {
         ILinkedEntity<IHasReadOnlyYear> result = new YearEntity(2023);
 
-        Assert.Equal(2024, result.Next.Year);
+        Assert.Equal(2024, result.Next().Year);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class YearEntityTests
     {
         var result = new YearEntity(2023);
 
-        Assert.Equal(2022, result.Previous.Year);
+        Assert.Equal(2022, result.Previous().Year);
     }
 
     [Fact]
