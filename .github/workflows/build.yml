@@ -21,6 +21,9 @@ jobs:
         key: nuget-${{ secrets.cache-version }}-${{ hashFiles('**/*.csproj') }}
         restore-keys: |
           nuget-${{ secrets.cache-version }}-
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.x
     - name: Build and test
       run: |
         dotnet build -c Release
