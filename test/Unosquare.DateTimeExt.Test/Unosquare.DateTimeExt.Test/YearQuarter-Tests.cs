@@ -54,6 +54,12 @@ public class YearQuarterTests
     }
 
     [Fact]
+    public void WithYearQuarterToQuarter_ReturnsQuarter()
+    {
+        Assert.Equal(new(year: 2022, quarter: 3), new YearQuarter(year: 2022, quarter: 1).ToQuarter(3));
+    }
+
+    [Fact]
     public void WithYearQuarterAddQuarters_SubtractsQuarters()
     {
         Assert.Equal(new(year: 2022, quarter: 1), new YearQuarter(year: 2022, quarter: 2).AddQuarters(-1));
@@ -80,7 +86,7 @@ public class YearQuarterTests
     {
         bool result = YearQuarter.TryParse("2021-Q5", out var quarter);
         Assert.False(result);
-        Assert.Equal(default, quarter);
+        Assert.Equal(null, quarter);
 
     }
 
@@ -89,5 +95,14 @@ public class YearQuarterTests
     {
         bool result = YearQuarter.TryParse("YearQuarter", out _);
         Assert.False(result);
+    }
+
+    [Fact]
+    public void WithYearQuarter_ToRecord_ReturnsRecord()
+    {
+        var yearQuarter = new YearQuarter(quarter: 2, year: 2023);
+        var record = yearQuarter.ToRecord();
+        Assert.Equal(2023, record.Year);
+        Assert.Equal(2, record.Quarter);
     }
 }

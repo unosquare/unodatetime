@@ -11,22 +11,23 @@ public static class DateExtensions
         ? string.Empty
         : @this.Value.ToFormattedString();
 
-    public static DateTime ToUtc(
-        this DateTime @this,
-        string timezone)
+    extension(DateTime @this)
     {
-        try
+        public DateTime ToUtc(string timezone)
         {
-            var timezoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timezone);
-            return TimeZoneInfo.ConvertTimeToUtc(@this, timezoneInfo);
+            try
+            {
+                var timezoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timezone);
+                return TimeZoneInfo.ConvertTimeToUtc(@this, timezoneInfo);
+            }
+            catch
+            {
+                return TimeZoneInfo.ConvertTimeToUtc(@this, TimeZoneInfo.Local);
+            }
         }
-        catch
-        {
-            return TimeZoneInfo.ConvertTimeToUtc(@this, TimeZoneInfo.Local);
-        }
-    }
 
-    public static int GetQuarter(this DateTime @this) => (@this.Month - 1) / 3 + 1;
+        public int GetQuarter() => (@this.Month - 1) / 3 + 1;
+    }
 
     public static DateTime? ToDateOrNull(this string @this) =>
         !DateTime.TryParse(@this, out var value) ? null : value;
@@ -55,45 +56,48 @@ public static class DateExtensions
         return firstDayOfFirstWeek.AddDays((weekOfYear - 1) * 7);
     }
 
-    public static DateTime GetFirstDayOfMonth(this DateTime date) => new(date.Year, date.Month, 1);
-
-    public static DateTime GetLastDayOfMonth(this DateTime date) =>
-        new(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
-
-    public static DateTime GetFirstBusinessDayOfMonth(this DateTime @this)
+    extension(DateTime date)
     {
-        var firstDayOfCurrentMonth = @this.GetFirstDayOfMonth();
+        public DateTime GetFirstDayOfMonth() => new(date.Year, date.Month, 1);
 
-        return firstDayOfCurrentMonth.DayOfWeek switch
+        public DateTime GetLastDayOfMonth() =>
+            new(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+
+        public DateTime GetFirstBusinessDayOfMonth()
         {
-            DayOfWeek.Sunday => firstDayOfCurrentMonth.AddDays(1),
-            DayOfWeek.Saturday => firstDayOfCurrentMonth.AddDays(2),
-            _ => firstDayOfCurrentMonth,
-        };
-    }
+            var firstDayOfCurrentMonth = date.GetFirstDayOfMonth();
 
-    public static DateTime GetLastBusinessDayOfMonth(this DateTime @this)
-    {
-        var lastDayOfCurrentMonth = @this.GetLastDayOfMonth();
+            return firstDayOfCurrentMonth.DayOfWeek switch
+            {
+                DayOfWeek.Sunday => firstDayOfCurrentMonth.AddDays(1),
+                DayOfWeek.Saturday => firstDayOfCurrentMonth.AddDays(2),
+                _ => firstDayOfCurrentMonth,
+            };
+        }
 
-        return lastDayOfCurrentMonth.DayOfWeek switch
+        public DateTime GetLastBusinessDayOfMonth()
         {
-            DayOfWeek.Sunday => lastDayOfCurrentMonth.AddDays(-2),
-            DayOfWeek.Saturday => lastDayOfCurrentMonth.AddDays(-1),
-            _ => lastDayOfCurrentMonth,
-        };
-    }
+            var lastDayOfCurrentMonth = date.GetLastDayOfMonth();
 
-    public static int GetBusinessDays(this DateTime startDate, DateTime endDate)
-    {
-        var calcBusinessDays =
-            1 + ((endDate - startDate).TotalDays * 5 -
-                 (startDate.DayOfWeek - endDate.DayOfWeek) * 2) / 7;
+            return lastDayOfCurrentMonth.DayOfWeek switch
+            {
+                DayOfWeek.Sunday => lastDayOfCurrentMonth.AddDays(-2),
+                DayOfWeek.Saturday => lastDayOfCurrentMonth.AddDays(-1),
+                _ => lastDayOfCurrentMonth,
+            };
+        }
 
-        if (endDate.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
-        if (startDate.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+        public int GetBusinessDays(DateTime endDate)
+        {
+            var calcBusinessDays =
+                1 + ((endDate - date).TotalDays * 5 -
+                     (date.DayOfWeek - endDate.DayOfWeek) * 2) / 7;
 
-        return (int)calcBusinessDays;
+            if (endDate.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
+            if (date.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+
+            return (int)calcBusinessDays;
+        }
     }
 
     public static int GetMonthFromWeekYear(this int year, int week)
@@ -110,52 +114,55 @@ public static class DateExtensions
         return date.Month;
     }
 
-    public static bool IsWeekend(this DateTime date) =>
-        date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday;
-
-    public static DateTime ToMidnight(this DateTime date) =>
-        date.Date.AddDays(1).AddSeconds(-1);
-
-    public static int GetDaysInMonth(this DateTime date) => DateTime.DaysInMonth(date.Year, date.Month);
-
-    public static int DiffMonths(this DateTime endDate, DateTime startDate)
+    extension(DateTime date)
     {
-        var diffYears = Math.Abs(endDate.Year - startDate.Year);
-        var diffMonths = endDate.Month - startDate.Month;
+        public bool IsWeekend() =>
+            date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday;
 
-        return (diffYears * 12) + diffMonths;
-    }
+        public DateTime ToMidnight() =>
+            date.Date.AddDays(1).AddSeconds(-1);
 
-    public static DateTime OrUtcNow(this DateTime date) =>
-        date > DateTime.UtcNow ? DateTime.UtcNow : date;
+        public int GetDaysInMonth() => DateTime.DaysInMonth(date.Year, date.Month);
 
-    public static DateTime OrNow(this DateTime date) =>
-        date > DateTime.Now ? DateTime.Now : date;
-
-    public static DateTime OrToday(this DateTime date) =>
-        date > DateTime.Today ? DateTime.Today : date;
-
-    public static DateTime GetNextBusinessDay(this DateTime currentDate)
-    {
-        do
+        public int DiffMonths(DateTime startDate)
         {
-            currentDate = currentDate.AddDays(1);
-        } while (currentDate.IsWeekend());
+            var diffYears = Math.Abs(date.Year - startDate.Year);
+            var diffMonths = date.Month - startDate.Month;
 
-        return currentDate;
-    }
-
-    public static DateTime GetDateFromWeekDay(this DateTime currentDate, int weekday)
-    {
-        var daysAdded = 0;
-
-        while (daysAdded < weekday)
-        {
-            currentDate = currentDate.AddDays(1);
-            if (currentDate.DayOfWeek != DayOfWeek.Saturday && currentDate.DayOfWeek != DayOfWeek.Sunday)
-                daysAdded++;
+            return (diffYears * 12) + diffMonths;
         }
 
-        return currentDate;
+        public DateTime OrUtcNow() =>
+            date > DateTime.UtcNow ? DateTime.UtcNow : date;
+
+        public DateTime OrNow() =>
+            date > DateTime.Now ? DateTime.Now : date;
+
+        public DateTime OrToday() =>
+            date > DateTime.Today ? DateTime.Today : date;
+
+        public DateTime GetNextBusinessDay()
+        {
+            do
+            {
+                date = date.AddDays(1);
+            } while (date.IsWeekend());
+
+            return date;
+        }
+
+        public DateTime GetDateFromWeekDay(int weekday)
+        {
+            var daysAdded = 0;
+
+            while (daysAdded < weekday)
+            {
+                date = date.AddDays(1);
+                if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
+                    daysAdded++;
+            }
+
+            return date;
+        }
     }
 }

@@ -71,7 +71,7 @@ public class YearMonthTests
     {
         var result = YearMonth.TryParse("2022-13", out var dateRange);
         Assert.False(result);
-        Assert.Equal(default, dateRange);
+        Assert.Equal(null, dateRange);
     }
 
     [Fact]

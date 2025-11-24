@@ -62,8 +62,6 @@ public class YearQuarter : YearAbstract<YearQuarter>, IYearQuarterDateRange, ICo
         return other is null ? 1 : base.CompareTo(other);
     }
 
-    public static int MonthInQuarter(int month) => ((month - 1) % QuarterMonths) + 1;
-
     public static bool TryParse(string? value, out YearQuarter result)
     {
         result = null!;
