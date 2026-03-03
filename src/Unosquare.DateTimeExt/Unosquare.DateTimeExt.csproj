@@ -7,6 +7,41 @@
 		<AnalysisLevel>latest</AnalysisLevel>
 		<CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
 		<Version>3.0.0</Version>
+
+		<!-- Package Identity & Description -->
+		<PackageId>Unosquare.DateTimeExt</PackageId>
+		<Title>Unosquare DateTime Extensions</Title>
+		<Authors>Unosquare</Authors>
+		<Company>Unosquare</Company>
+		<Description>A comprehensive C# library providing DateTime helper classes and extension methods for .NET. Includes date ranges, business day calculations, year-month/quarter/week periods, grouping utilities, and more.</Description>
+		<Copyright>Copyright © 2023–2026 Unosquare</Copyright>
+		<PackageTags>datetime;daterange;businessdays;quarter;yearmonth;extensions;dotnet;csharp;unosquare</PackageTags>
+		<NeutralLanguage>en</NeutralLanguage>
+
+		<!-- Repository & License -->
+		<PackageProjectUrl>https://github.com/unosquare/unodatetime</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/unosquare/unodatetime</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<!-- Documentation & Symbols -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<!-- Deterministic CI builds -->
+		<ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
 
 </Project>
