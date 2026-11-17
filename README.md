@@ -1,5 +1,14 @@
 # Unosquare DateTime Extensions
 
+> [!WARNING]
+> **This repository is archived and no longer maintained.** No new versions of the
+> `Unosquare.DateTimeExt` NuGet package will be published.
+>
+> The code was absorbed into the Unosquare OS backend at version 2.0.4 (commit `ccdfa981`) as the
+> `Unosquare.Os.Shared.DateTimeExt` project, keeping the `Unosquare.DateTimeExt` namespaces
+> ([unosquare-os-backend#6720](https://github.com/unosquare/unosquare-os-backend/issues/6720)).
+> Changes go there. The published packages stay available on nuget.org.
+
 [![Build](https://github.com/unosquare/unodatetime/actions/workflows/build.yml/badge.svg)](https://github.com/unosquare/unodatetime/actions/workflows/build.yml)
 [![NuGet](https://img.shields.io/nuget/v/Unosquare.DateTimeExt.svg)](https://www.nuget.org/packages/Unosquare.DateTimeExt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
